@@ -1,0 +1,69 @@
+version: "3.9"
+
+services:
+  dremio:
+    platform: linux/amd64
+    image: dremio/dremio-oss:latest
+    container_name: dremio
+    ports:
+      - "9047:9047" # Dremio UI
+      - "31010:31010" # Dremio SQL
+      - "31020:31020" # Dremio Arrow Flight
+
+  minioserver:
+    platform: linux/amd64
+    image: minio/minio:latest
+    container_name: minioserver
+    ports:
+      - "9000:9000" # MinIO Console
+      - "9001:9001" # MinIO Console (alternative)
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: minio
+      MINIO_ROOT_PASSWORD: minioadmin
+  
+  nessie:
+    platform: linux/amd64
+    image: projectnessie/nessie:latest
+    container_name: nessie
+    ports:
+      - "19120:19120" # Nessie API
+      - "19121:19121" # Nessie UI
+    environment:
+      NESSIE_STORAGE_TYPE: "memory"
+      NESSIE_SERVER_PORT: 19120
+  
+  superset:
+    platform: linux/amd64
+    image: apache/superset:latest
+    container_name: superset
+    ports:
+      - "8088:8088" # Superset UI
+    environment:
+      - SUPERSET_WEBSERVER_PORT=8088
+      - SUPERSET_ADMIN_PASSWORD=admin
+      - SUPERSET_SECRET_KEY=your_secret_key
+    volumes:
+      - ./superset:/app/superset_home
+      - ./superset-init.sh:/app/superset-init.sh
+    entrypoint: /app/superset-init.sh
+    user: root
+  
+  
+  jupyterlab:
+    platform: linux/amd64
+    image: jupyter/base-notebook:latest
+    container_name: jupyterlab
+    ports:
+      - "8888:8888" # JupyterLab UI
+    volumes:
+      - ./notebooks:/home/jovyan/work
+    environment:
+      JUPYTER_ENABLE_LAB: "yes"
+      JUPYTER_SUDO: "yes"
+    command: start-notebook.sh --NotebookApp.token='' --NotebookApp.password=''
+
+networks:
+  default:
+    name: lakehouse_network
+    driver: bridge
