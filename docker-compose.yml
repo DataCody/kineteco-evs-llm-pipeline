@@ -17,10 +17,10 @@ servises:
     ports:
       - "9000:9000" # MinIO Console
       - "9001:9001" # MinIO Console (alternative)
-      comand: server /data --console-address ":9001"
-      enviroment:
-        MINIO_ROOT_USER: minio
-        MINIO_ROOT_PASSWORD: minioadmin
+    comand: server /data --console-address ":9001"
+    enviroment:
+      MINIO_ROOT_USER: minio
+      MINIO_ROOT_PASSWORD: minioadmin
   
   nessie:
     platform: linux/amd64
