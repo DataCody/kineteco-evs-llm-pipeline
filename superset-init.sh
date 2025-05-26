@@ -7,7 +7,7 @@ sleep 10
 pip install --no-cash-dir sqlalchemy-utils
 
 # Initialize the database
-suerset db upgrade
+superset db upgrade
 
 # Create an admin user
 superset fab create-admin \
@@ -21,4 +21,4 @@ superset fab create-admin \
 superset init
 
 # Start the Superset server
-superset run -h 0.0.0 -p 8088
+superset run -h 0.0.0.0 -p 8088
