@@ -3,8 +3,10 @@
 # Wait for the database to be ready
 sleep 10
 
+set -e
+
 # Initialize the Superset database
-pip install --no-cash-dir sqlalchemy-utils
+pip install --no-cache-dir sqlalchemy-utils
 
 # Initialize the database
 superset db upgrade
