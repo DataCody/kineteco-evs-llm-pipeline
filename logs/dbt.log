@@ -1,0 +1,8 @@
+[0m13:53:51.123843 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7921467ba420>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x792146119460>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x792148168590>]}
+
+
+============================== 13:53:51.132177 | 6a012edc-7355-4cea-af9a-384eb9e7f027 ==============================
+[0m13:53:51.132177 [info ] [MainThread]: Running with dbt=1.9.4
+[0m13:53:51.133006 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'write_json': 'True', 'log_cache_events': 'False', 'partial_parse': 'True', 'cache_selected_only': 'False', 'warn_error': 'None', 'version_check': 'True', 'debug': 'False', 'log_path': 'logs', 'fail_fast': 'False', 'profiles_dir': '/home/codespace/.dbt', 'use_colors': 'True', 'use_experimental_parser': 'False', 'no_print': 'None', 'quiet': 'False', 'empty': 'None', 'log_format': 'default', 'introspect': 'True', 'static_parser': 'True', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'target_path': 'None', 'invocation_command': 'dbt init .', 'send_anonymous_usage_stats': 'True'}
+[0m13:53:51.145517 [warn ] [MainThread]: [ConfigFolderDirectory]: Unable to parse logging event dictionary. Failed to parse dir field: expected string or bytes-like object, got 'PosixPath'.. Dictionary: {'dir': PosixPath('/home/codespace/.dbt')}
+[0m13:53:51.146241 [info ] [MainThread]: Creating dbt configuration folder at 
