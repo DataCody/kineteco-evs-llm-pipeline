@@ -1,8 +1,8 @@
 pyspark==3.3.0
-python-dotenv==1.6.0
-dbt-dremio==1.0.0
-dagster==2.7.0
-dagster-cloud==2.7.0
-dagster-dbt==0.20.0
-dagster-webserver==2.7.0
-boto3==1.24.0
+python-dotenv
+dbt-dremio
+dagster
+dagster-cloud
+dagster-dbt
+dagster-webserver
+boto3
