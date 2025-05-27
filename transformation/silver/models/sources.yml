@@ -1,0 +1,24 @@
+version: 2
+
+sources:
+  - name: ecoride_bronze
+    database: catalog
+    schema: bronze.ecoride
+    tables:
+      - name: customers
+      - name: sales
+      - name: vehicles
+      - name: product_reviews
+
+  - name: chargenet_bronze
+    database: catalog
+    schema: bronze.chargenet
+    tables:
+      - name: charging_sessions
+      - name: stations
+
+  - name: vehicle_health_bronze
+    database: catalog
+    schema: bronze.vehicle_health
+    tables:
+      - name: logs
