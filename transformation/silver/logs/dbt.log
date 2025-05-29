@@ -1,0 +1,773 @@
+[0m03:11:23.911393 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f6fa9cc76e0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f6fa927b0e0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f6fa9820140>]}
+
+
+============================== 03:11:23.918791 | 80bdec69-aede-4381-918b-f91c5ffeeebd ==============================
+[0m03:11:23.918791 [info ] [MainThread]: Running with dbt=1.9.4
+[0m03:11:23.919604 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'log_cache_events': 'False', 'write_json': 'True', 'partial_parse': 'True', 'cache_selected_only': 'False', 'profiles_dir': '/workspaces/Sales-Copilot-Lakehouse/transformation/silver', 'fail_fast': 'False', 'warn_error': 'None', 'log_path': '/workspaces/Sales-Copilot-Lakehouse/transformation/silver/logs', 'debug': 'False', 'version_check': 'True', 'use_colors': 'True', 'use_experimental_parser': 'False', 'empty': 'None', 'quiet': 'False', 'no_print': 'None', 'log_format': 'default', 'static_parser': 'True', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'invocation_command': 'dbt debug', 'target_path': 'None', 'introspect': 'True', 'send_anonymous_usage_stats': 'True'}
+[0m03:11:23.932013 [info ] [MainThread]: dbt version: 1.9.4
+[0m03:11:23.932589 [info ] [MainThread]: python version: 3.12.1
+[0m03:11:23.933060 [info ] [MainThread]: python path: /usr/local/python/3.12.1/bin/python3
+[0m03:11:23.933534 [info ] [MainThread]: os info: Linux-6.8.0-1027-azure-x86_64-with-glibc2.31
+[0m03:11:24.047586 [info ] [MainThread]: Using profiles dir at /workspaces/Sales-Copilot-Lakehouse/transformation/silver
+[0m03:11:24.048387 [info ] [MainThread]: Using profiles.yml file at /workspaces/Sales-Copilot-Lakehouse/transformation/silver/profiles.yml
+[0m03:11:24.049143 [info ] [MainThread]: Using dbt_project.yml file at /workspaces/Sales-Copilot-Lakehouse/transformation/silver/dbt_project.yml
+[0m03:11:24.050372 [info ] [MainThread]: adapter type: dremio
+[0m03:11:24.050948 [info ] [MainThread]: adapter version: 1.8.3
+[0m03:11:24.191317 [info ] [MainThread]: Configuration:
+[0m03:11:24.192045 [info ] [MainThread]:   profiles.yml file [[32mOK found and valid[0m]
+[0m03:11:24.192633 [info ] [MainThread]:   dbt_project.yml file [[32mOK found and valid[0m]
+[0m03:11:24.193173 [info ] [MainThread]: Required dependencies:
+[0m03:11:24.193767 [debug] [MainThread]: Executing "git --help"
+[0m03:11:24.196370 [debug] [MainThread]: STDOUT: "b"usage: git [-v | --version] [-h | --help] [-C <path>] [-c <name>=<value>]\n           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]\n           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--no-lazy-fetch]\n           [--no-optional-locks] [--no-advice] [--bare] [--git-dir=<path>]\n           [--work-tree=<path>] [--namespace=<name>] [--config-env=<name>=<envvar>]\n           <command> [<args>]\n\nThese are common Git commands used in various situations:\n\nstart a working area (see also: git help tutorial)\n   clone      Clone a repository into a new directory\n   init       Create an empty Git repository or reinitialize an existing one\n\nwork on the current change (see also: git help everyday)\n   add        Add file contents to the index\n   mv         Move or rename a file, a directory, or a symlink\n   restore    Restore working tree files\n   rm         Remove files from the working tree and from the index\n\nexamine the history and state (see also: git help revisions)\n   bisect     Use binary search to find the commit that introduced a bug\n   diff       Show changes between commits, commit and working tree, etc\n   grep       Print lines matching a pattern\n   log        Show commit logs\n   show       Show various types of objects\n   status     Show the working tree status\n\ngrow, mark and tweak your common history\n   backfill   Download missing objects in a partial clone\n   branch     List, create, or delete branches\n   commit     Record changes to the repository\n   merge      Join two or more development histories together\n   rebase     Reapply commits on top of another base tip\n   reset      Reset current HEAD to the specified state\n   switch     Switch branches\n   tag        Create, list, delete or verify a tag object signed with GPG\n\ncollaborate (see also: git help workflows)\n   fetch      Download objects and refs from another repository\n   pull       Fetch from and integrate with another repository or a local branch\n   push       Update remote refs along with associated objects\n\n'git help -a' and 'git help -g' list available subcommands and some\nconcept guides. See 'git help <command>' or 'git help <concept>'\nto read about a specific subcommand or concept.\nSee 'git help git' for an overview of the system.\n""
+[0m03:11:24.197009 [debug] [MainThread]: STDERR: "b''"
+[0m03:11:24.197474 [info ] [MainThread]:  - git [[32mOK found[0m]
+
+[0m03:11:24.198095 [info ] [MainThread]: Connection:
+[0m03:11:24.198727 [info ] [MainThread]:   cloud_host: None
+[0m03:11:24.199275 [info ] [MainThread]:   cloud_project_id: None
+[0m03:11:24.199797 [info ] [MainThread]:   software_host: 127.0.0.1
+[0m03:11:24.200286 [info ] [MainThread]:   port: 9047
+[0m03:11:24.200818 [info ] [MainThread]:   use_ssl: False
+[0m03:11:24.201306 [info ] [MainThread]:   environment: None
+[0m03:11:24.201803 [info ] [MainThread]:   UID: Cody
+[0m03:11:24.202276 [info ] [MainThread]:   root_path: silver
+[0m03:11:24.202773 [info ] [MainThread]:   datalake: catalog
+[0m03:11:24.203247 [info ] [MainThread]:   database: lakehouse
+[0m03:11:24.203750 [info ] [MainThread]:   schema: silver
+[0m03:11:24.204468 [info ] [MainThread]:   user: Cody
+[0m03:11:24.205259 [info ] [MainThread]:   username: Cody
+[0m03:11:24.205837 [info ] [MainThread]:   object_storage_source: catalog
+[0m03:11:24.206269 [info ] [MainThread]:   object_storage_path: silver
+[0m03:11:24.206716 [info ] [MainThread]:   dremio_space: lakehouse
+[0m03:11:24.207137 [info ] [MainThread]:   dremio_space_folder: silver
+[0m03:11:24.207733 [info ] [MainThread]: Registered adapter: dremio=1.8.3
+[0m03:11:24.321696 [debug] [MainThread]: Acquiring new dremio connection 'debug'
+[0m03:11:24.322317 [debug] [MainThread]: dremio adapter: Using dremio connection "debug". fetch=False
+[0m03:11:24.322807 [debug] [MainThread]: dremio adapter: On debug: select 1 as id
+[0m03:11:24.323246 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m03:11:24.409299 [debug] [MainThread]: dremio adapter: Connected to db: lakehouse
+[0m03:11:24.649924 [debug] [MainThread]: dremio adapter: Job State = PLANNING
+[0m03:11:24.863437 [debug] [MainThread]: dremio adapter: Job State = COMPLETED
+[0m03:11:24.864298 [debug] [MainThread]: dremio adapter: SQL status: 1 in 0.54 seconds
+[0m03:11:24.865469 [debug] [MainThread]: On debug: Close
+[0m03:11:24.866000 [info ] [MainThread]:   Connection test: [[32mOK connection ok[0m]
+
+[0m03:11:24.866761 [info ] [MainThread]: [32mAll checks passed![0m
+[0m03:11:24.868435 [debug] [MainThread]: Resource report: {"command_name": "debug", "command_success": true, "command_wall_clock_time": 1.0384179, "process_in_blocks": "87624", "process_kernel_time": 0.417963, "process_mem_max_rss": "102940", "process_out_blocks": "24", "process_user_time": 1.898554}
+[0m03:11:24.869150 [debug] [MainThread]: Command `dbt debug` succeeded at 03:11:24.869019 after 1.04 seconds
+[0m03:11:24.869652 [debug] [MainThread]: Connection 'debug' was properly closed.
+[0m03:11:24.870148 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f6fa904cbf0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f6fab16c8c0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f6fa907e7e0>]}
+[0m03:11:24.870721 [debug] [MainThread]: Flushing usage events
+[0m03:11:25.728820 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m03:12:01.056741 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x759286564200>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7592861007a0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7592861fa8a0>]}
+
+
+============================== 03:12:01.061461 | 7bac4834-4498-451b-8cb1-81de3b444ecc ==============================
+[0m03:12:01.061461 [info ] [MainThread]: Running with dbt=1.9.4
+[0m03:12:01.062254 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'log_cache_events': 'False', 'write_json': 'True', 'partial_parse': 'True', 'cache_selected_only': 'False', 'warn_error': 'None', 'debug': 'False', 'version_check': 'True', 'log_path': '/workspaces/Sales-Copilot-Lakehouse/transformation/silver/logs', 'fail_fast': 'False', 'profiles_dir': '/workspaces/Sales-Copilot-Lakehouse/transformation/silver', 'use_colors': 'True', 'use_experimental_parser': 'False', 'no_print': 'None', 'quiet': 'False', 'empty': 'False', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'static_parser': 'True', 'invocation_command': 'dbt run', 'log_format': 'default', 'target_path': 'None', 'introspect': 'True', 'send_anonymous_usage_stats': 'True'}
+[0m03:12:01.341561 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': '7bac4834-4498-451b-8cb1-81de3b444ecc', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x759285ec40e0>]}
+[0m03:12:01.428951 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': '7bac4834-4498-451b-8cb1-81de3b444ecc', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x759285ec7e90>]}
+[0m03:12:01.430264 [info ] [MainThread]: Registered adapter: dremio=1.8.3
+[0m03:12:01.553746 [debug] [MainThread]: checksum: b5597158181700c50f5bc1c71fe28b37a6fb85633dc5323885263678b6bc782c, vars: {}, profile: , target: , version: 1.9.4
+[0m03:12:01.554664 [info ] [MainThread]: Unable to do partial parsing because saved manifest not found. Starting full parse.
+[0m03:12:01.555210 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'partial_parser', 'label': '7bac4834-4498-451b-8cb1-81de3b444ecc', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7592859daa80>]}
+[0m03:12:03.310855 [warn ] [MainThread]: [[33mWARNING[0m]: Configuration paths exist in your dbt_project.yml file which do not apply to any resources.
+There are 3 unused configuration paths:
+- models.chargenet
+- models.ecoride
+- models.vehicle_health
+[0m03:12:03.322979 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': '7bac4834-4498-451b-8cb1-81de3b444ecc', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7592856334a0>]}
+[0m03:12:03.415391 [debug] [MainThread]: Wrote artifact WritableManifest to /workspaces/Sales-Copilot-Lakehouse/transformation/silver/target/manifest.json
+[0m03:12:03.420632 [debug] [MainThread]: Wrote artifact SemanticManifest to /workspaces/Sales-Copilot-Lakehouse/transformation/silver/target/semantic_manifest.json
+[0m03:12:03.435163 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': '7bac4834-4498-451b-8cb1-81de3b444ecc', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7592856594c0>]}
+[0m03:12:03.435838 [info ] [MainThread]: Found 7 models, 19 data tests, 7 sources, 467 macros
+[0m03:12:03.436451 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '7bac4834-4498-451b-8cb1-81de3b444ecc', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x75928552af60>]}
+[0m03:12:03.438870 [info ] [MainThread]: 
+[0m03:12:03.439462 [info ] [MainThread]: Concurrency: 1 threads (target='dev')
+[0m03:12:03.440024 [info ] [MainThread]: 
+[0m03:12:03.440787 [debug] [MainThread]: Acquiring new dremio connection 'master'
+[0m03:12:03.447262 [debug] [ThreadPool]: Acquiring new dremio connection 'list_catalog'
+[0m03:12:03.459579 [debug] [ThreadPool]: dremio adapter: Using dremio connection "list_catalog". fetch=True
+[0m03:12:03.460100 [debug] [ThreadPool]: dremio adapter: On list_catalog: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "silver", "target_name": "dev", "connection_name": "list_catalog"} */
+
+    
+    select substring(schema_name, position('.' in schema_name) + 1)
+    from information_schema.schemata
+    where ilike(schema_name, 'catalog.%')
+    union
+    values('no_schema')
+  
+  
+[0m03:12:03.460581 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m03:12:03.486468 [debug] [ThreadPool]: dremio adapter: Connected to db: lakehouse
+[0m03:12:03.714552 [debug] [ThreadPool]: dremio adapter: Job State = METADATA_RETRIEVAL
+[0m03:12:03.940144 [debug] [ThreadPool]: dremio adapter: Job State = RUNNING
+[0m03:12:04.150949 [debug] [ThreadPool]: dremio adapter: Job State = COMPLETED
+[0m03:12:04.174322 [debug] [ThreadPool]: dremio adapter: SQL status: 1 in 0.71 seconds
+[0m03:12:04.175094 [debug] [ThreadPool]: On list_catalog: Close
+[0m03:12:04.175963 [debug] [ThreadPool]: Re-using an available connection from the pool (formerly list_catalog, now create_catalog_silver)
+[0m03:12:04.199425 [debug] [ThreadPool]: dremio adapter: Connected to db: lakehouse
+[0m03:12:04.200042 [debug] [ThreadPool]: dremio adapter: Connection is already open, skipping open.
+[0m03:12:04.286699 [debug] [ThreadPool]: dremio adapter: Database is default or already exists: creating folders only
+[0m03:12:04.287583 [debug] [ThreadPool]: On create_catalog_silver: Close
+[0m03:12:04.290012 [debug] [ThreadPool]: Re-using an available connection from the pool (formerly create_catalog_silver, now list_catalog_silver)
+[0m03:12:04.305553 [debug] [ThreadPool]: dremio adapter: Using dremio connection "list_catalog_silver". fetch=True
+[0m03:12:04.306530 [debug] [ThreadPool]: dremio adapter: On list_catalog_silver: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "silver", "target_name": "dev", "connection_name": "list_catalog_silver"} */
+
+
+      select (case when position('.' in table_schema) > 0
+              then substring(table_schema, 1, position('.' in table_schema) - 1)
+              else table_schema
+          end) as table_catalog
+          ,table_name
+          ,(case when position('.' in table_schema) > 0
+              then substring(table_schema, position('.' in table_schema) + 1)
+              else 'no_schema'
+          end) as table_schema
+          ,lower(table_type) as table_type
+      from information_schema."tables"
+        where ilike(table_schema, 'catalog.silver')
+      and table_type <> 'system_table'
+
+  
+[0m03:12:04.307273 [debug] [ThreadPool]: Opening a new connection, currently in state closed
+[0m03:12:04.343393 [debug] [ThreadPool]: dremio adapter: Connected to db: lakehouse
+[0m03:12:04.573420 [debug] [ThreadPool]: dremio adapter: Job State = METADATA_RETRIEVAL
+[0m03:12:04.782701 [debug] [ThreadPool]: dremio adapter: Job State = RUNNING
+[0m03:12:04.990968 [debug] [ThreadPool]: dremio adapter: Job State = COMPLETED
+[0m03:12:05.008331 [debug] [ThreadPool]: dremio adapter: SQL status: 0 in 0.70 seconds
+[0m03:12:05.009060 [debug] [ThreadPool]: On list_catalog_silver: ROLLBACK
+[0m03:12:05.009568 [debug] [ThreadPool]: dremio adapter: Handle rollback not implemented.
+[0m03:12:05.010028 [debug] [ThreadPool]: On list_catalog_silver: Close
+[0m03:12:05.010807 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '7bac4834-4498-451b-8cb1-81de3b444ecc', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x75928544ccb0>]}
+[0m03:12:05.013686 [debug] [Thread-1 (]: Began running node model.silver.charging_sessions
+[0m03:12:05.014357 [info ] [Thread-1 (]: 1 of 7 START sql table model catalog.silver.charging_sessions .................. [RUN]
+[0m03:12:05.015013 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly list_catalog_silver, now model.silver.charging_sessions)
+[0m03:12:05.015561 [debug] [Thread-1 (]: Began compiling node model.silver.charging_sessions
+[0m03:12:05.028967 [debug] [Thread-1 (]: Writing injected SQL for node "model.silver.charging_sessions"
+[0m03:12:05.029910 [debug] [Thread-1 (]: Began executing node model.silver.charging_sessions
+[0m03:12:05.079672 [debug] [Thread-1 (]: Writing runtime sql for node "model.silver.charging_sessions"
+[0m03:12:05.080754 [debug] [Thread-1 (]: dremio adapter: Using dremio connection "model.silver.charging_sessions". fetch=False
+[0m03:12:05.081341 [debug] [Thread-1 (]: dremio adapter: On model.silver.charging_sessions: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "silver", "target_name": "dev", "node_id": "model.silver.charging_sessions"} */
+
+  
+    
+
+  create table "catalog"."silver"."charging_sessions"
+   
+  
+  
+  
+  
+
+  
+
+  as (
+    
+
+WITH source_data AS (
+    SELECT
+        id,
+        station_id,
+        session_duration,
+        energy_consumed_kWh,
+        charging_rate,
+        cost,
+        TO_TIMESTAMP(start_time, 'MM/DD/YYYY HH24:MI:SS') AS start_time,
+        TO_TIMESTAMP(end_time, 'MM/DD/YYYY HH24:MI:SS') AS end_time
+    FROM "catalog"."bronze"."chargenet"."charging_sessions"
+)
+
+SELECT
+    id,
+    station_id,
+    session_duration,
+    energy_consumed_kWh,
+    charging_rate,
+    cost,
+    start_time,
+    end_time
+FROM source_data
+  )
+  
+[0m03:12:05.081927 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m03:12:05.104439 [debug] [Thread-1 (]: dremio adapter: Connected to db: lakehouse
+[0m03:12:05.323625 [debug] [Thread-1 (]: dremio adapter: Job State = METADATA_RETRIEVAL
+[0m03:12:05.533456 [debug] [Thread-1 (]: dremio adapter: Job State = FAILED
+[0m03:12:05.534189 [debug] [Thread-1 (]: dremio adapter: Error running SQL: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "silver", "target_name": "dev", "node_id": "model.silver.charging_sessions"} */
+
+  
+    
+
+  create table "catalog"."silver"."charging_sessions"
+   
+  
+  
+  
+  
+
+  
+
+  as (
+    
+
+WITH source_data AS (
+    SELECT
+        id,
+        station_id,
+        session_duration,
+        energy_consumed_kWh,
+        charging_rate,
+        cost,
+        TO_TIMESTAMP(start_time, 'MM/DD/YYYY HH24:MI:SS') AS start_time,
+        TO_TIMESTAMP(end_time, 'MM/DD/YYYY HH24:MI:SS') AS end_time
+    FROM "catalog"."bronze"."chargenet"."charging_sessions"
+)
+
+SELECT
+    id,
+    station_id,
+    session_duration,
+    energy_consumed_kWh,
+    charging_rate,
+    cost,
+    start_time,
+    end_time
+FROM source_data
+  )
+  
+[0m03:12:05.534745 [debug] [Thread-1 (]: On model.silver.charging_sessions: ROLLBACK
+[0m03:12:05.535234 [debug] [Thread-1 (]: dremio adapter: Handle rollback not implemented.
+[0m03:12:05.535753 [debug] [Thread-1 (]: On model.silver.charging_sessions: Close
+[0m03:12:05.544015 [debug] [Thread-1 (]: Runtime Error in model charging_sessions (models/chargenet/charging_sessions.sql)
+  ERROR: Object 'bronze' not found within 'catalog'. Please check that it exists in the selected context.
+[0m03:12:05.546017 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '7bac4834-4498-451b-8cb1-81de3b444ecc', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x759286ad90a0>]}
+[0m03:12:05.546869 [error] [Thread-1 (]: 1 of 7 ERROR creating sql table model catalog.silver.charging_sessions ......... [[31mERROR[0m in 0.53s]
+[0m03:12:05.547703 [debug] [Thread-1 (]: Finished running node model.silver.charging_sessions
+[0m03:12:05.548275 [debug] [Thread-1 (]: Began running node model.silver.customers
+[0m03:12:05.548965 [debug] [Thread-4 (]: Marking all children of 'model.silver.charging_sessions' to be skipped because of status 'error'.  Reason: Runtime Error in model charging_sessions (models/chargenet/charging_sessions.sql)
+  ERROR: Object 'bronze' not found within 'catalog'. Please check that it exists in the selected context..
+[0m03:12:05.549575 [info ] [Thread-1 (]: 2 of 7 START sql table model catalog.silver.customers .......................... [RUN]
+[0m03:12:05.551044 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly model.silver.charging_sessions, now model.silver.customers)
+[0m03:12:05.551576 [debug] [Thread-1 (]: Began compiling node model.silver.customers
+[0m03:12:05.555518 [debug] [Thread-1 (]: Writing injected SQL for node "model.silver.customers"
+[0m03:12:05.556268 [debug] [Thread-1 (]: Began executing node model.silver.customers
+[0m03:12:05.559199 [debug] [Thread-1 (]: Writing runtime sql for node "model.silver.customers"
+[0m03:12:05.559994 [debug] [Thread-1 (]: dremio adapter: Using dremio connection "model.silver.customers". fetch=False
+[0m03:12:05.560589 [debug] [Thread-1 (]: dremio adapter: On model.silver.customers: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "silver", "target_name": "dev", "node_id": "model.silver.customers"} */
+
+  
+    
+
+  create table "catalog"."silver"."customers"
+   
+  
+  
+  
+  
+
+  
+
+  as (
+    
+
+SELECT
+    id,
+    first_name,
+    -- Assuming email is important and retained
+    email,
+    city,
+    "state",
+    country
+FROM "catalog"."bronze"."ecoride"."customers"
+  )
+  
+[0m03:12:05.561108 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m03:12:05.586074 [debug] [Thread-1 (]: dremio adapter: Connected to db: lakehouse
+[0m03:12:05.813722 [debug] [Thread-1 (]: dremio adapter: Job State = METADATA_RETRIEVAL
+[0m03:12:06.020811 [debug] [Thread-1 (]: dremio adapter: Job State = FAILED
+[0m03:12:06.021645 [debug] [Thread-1 (]: dremio adapter: Error running SQL: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "silver", "target_name": "dev", "node_id": "model.silver.customers"} */
+
+  
+    
+
+  create table "catalog"."silver"."customers"
+   
+  
+  
+  
+  
+
+  
+
+  as (
+    
+
+SELECT
+    id,
+    first_name,
+    -- Assuming email is important and retained
+    email,
+    city,
+    "state",
+    country
+FROM "catalog"."bronze"."ecoride"."customers"
+  )
+  
+[0m03:12:06.022209 [debug] [Thread-1 (]: On model.silver.customers: ROLLBACK
+[0m03:12:06.022741 [debug] [Thread-1 (]: dremio adapter: Handle rollback not implemented.
+[0m03:12:06.023219 [debug] [Thread-1 (]: On model.silver.customers: Close
+[0m03:12:06.025862 [debug] [Thread-1 (]: Runtime Error in model customers (models/ecoride/customers.sql)
+  ERROR: Object 'bronze' not found within 'catalog'. Please check that it exists in the selected context.
+[0m03:12:06.026516 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '7bac4834-4498-451b-8cb1-81de3b444ecc', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x759284a882c0>]}
+[0m03:12:06.027277 [error] [Thread-1 (]: 2 of 7 ERROR creating sql table model catalog.silver.customers ................. [[31mERROR[0m in 0.48s]
+[0m03:12:06.028066 [debug] [Thread-1 (]: Finished running node model.silver.customers
+[0m03:12:06.028683 [debug] [Thread-1 (]: Began running node model.silver.product_reviews
+[0m03:12:06.029346 [debug] [Thread-4 (]: Marking all children of 'model.silver.customers' to be skipped because of status 'error'.  Reason: Runtime Error in model customers (models/ecoride/customers.sql)
+  ERROR: Object 'bronze' not found within 'catalog'. Please check that it exists in the selected context..
+[0m03:12:06.029943 [info ] [Thread-1 (]: 3 of 7 START sql table model catalog.silver.product_reviews .................... [RUN]
+[0m03:12:06.030771 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly model.silver.customers, now model.silver.product_reviews)
+[0m03:12:06.031306 [debug] [Thread-1 (]: Began compiling node model.silver.product_reviews
+[0m03:12:06.035037 [debug] [Thread-1 (]: Writing injected SQL for node "model.silver.product_reviews"
+[0m03:12:06.035817 [debug] [Thread-1 (]: Began executing node model.silver.product_reviews
+[0m03:12:06.038929 [debug] [Thread-1 (]: Writing runtime sql for node "model.silver.product_reviews"
+[0m03:12:06.039678 [debug] [Thread-1 (]: dremio adapter: Using dremio connection "model.silver.product_reviews". fetch=False
+[0m03:12:06.040254 [debug] [Thread-1 (]: dremio adapter: On model.silver.product_reviews: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "silver", "target_name": "dev", "node_id": "model.silver.product_reviews"} */
+
+  
+    
+
+  create table "catalog"."silver"."product_reviews"
+   
+  
+  
+  
+  
+
+  
+
+  as (
+    
+
+WITH formatted_reviews AS (
+    SELECT
+        CustomerID,
+        CAST("Date" as DATE) as ReviewDate,
+        Rating,
+        ReviewID,
+        TRIM(ReviewText) as ReviewText, -- Removes leading and trailing spaces
+        VehicleModel
+    FROM "catalog"."bronze"."ecoride"."product_reviews"
+)
+
+SELECT
+    CustomerID,
+    ReviewDate,
+    Rating,
+    ReviewID,
+    ReviewText,
+    VehicleModel
+FROM formatted_reviews
+  )
+  
+[0m03:12:06.040836 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m03:12:06.062867 [debug] [Thread-1 (]: dremio adapter: Connected to db: lakehouse
+[0m03:12:06.286983 [debug] [Thread-1 (]: dremio adapter: Job State = METADATA_RETRIEVAL
+[0m03:12:06.494330 [debug] [Thread-1 (]: dremio adapter: Job State = FAILED
+[0m03:12:06.495259 [debug] [Thread-1 (]: dremio adapter: Error running SQL: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "silver", "target_name": "dev", "node_id": "model.silver.product_reviews"} */
+
+  
+    
+
+  create table "catalog"."silver"."product_reviews"
+   
+  
+  
+  
+  
+
+  
+
+  as (
+    
+
+WITH formatted_reviews AS (
+    SELECT
+        CustomerID,
+        CAST("Date" as DATE) as ReviewDate,
+        Rating,
+        ReviewID,
+        TRIM(ReviewText) as ReviewText, -- Removes leading and trailing spaces
+        VehicleModel
+    FROM "catalog"."bronze"."ecoride"."product_reviews"
+)
+
+SELECT
+    CustomerID,
+    ReviewDate,
+    Rating,
+    ReviewID,
+    ReviewText,
+    VehicleModel
+FROM formatted_reviews
+  )
+  
+[0m03:12:06.495948 [debug] [Thread-1 (]: On model.silver.product_reviews: ROLLBACK
+[0m03:12:06.496467 [debug] [Thread-1 (]: dremio adapter: Handle rollback not implemented.
+[0m03:12:06.496999 [debug] [Thread-1 (]: On model.silver.product_reviews: Close
+[0m03:12:06.499584 [debug] [Thread-1 (]: Runtime Error in model product_reviews (models/ecoride/product_reviews.sql)
+  ERROR: Object 'bronze' not found within 'catalog'. Please check that it exists in the selected context.
+[0m03:12:06.500206 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '7bac4834-4498-451b-8cb1-81de3b444ecc', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x75928416b290>]}
+[0m03:12:06.500984 [error] [Thread-1 (]: 3 of 7 ERROR creating sql table model catalog.silver.product_reviews ........... [[31mERROR[0m in 0.47s]
+[0m03:12:06.501820 [debug] [Thread-1 (]: Finished running node model.silver.product_reviews
+[0m03:12:06.502367 [debug] [Thread-1 (]: Began running node model.silver.sales
+[0m03:12:06.503008 [debug] [Thread-4 (]: Marking all children of 'model.silver.product_reviews' to be skipped because of status 'error'.  Reason: Runtime Error in model product_reviews (models/ecoride/product_reviews.sql)
+  ERROR: Object 'bronze' not found within 'catalog'. Please check that it exists in the selected context..
+[0m03:12:06.503595 [info ] [Thread-1 (]: 4 of 7 START sql table model catalog.silver.sales .............................. [RUN]
+[0m03:12:06.504362 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly model.silver.product_reviews, now model.silver.sales)
+[0m03:12:06.504874 [debug] [Thread-1 (]: Began compiling node model.silver.sales
+[0m03:12:06.508547 [debug] [Thread-1 (]: Writing injected SQL for node "model.silver.sales"
+[0m03:12:06.509478 [debug] [Thread-1 (]: Began executing node model.silver.sales
+[0m03:12:06.512446 [debug] [Thread-1 (]: Writing runtime sql for node "model.silver.sales"
+[0m03:12:06.513185 [debug] [Thread-1 (]: dremio adapter: Using dremio connection "model.silver.sales". fetch=False
+[0m03:12:06.513767 [debug] [Thread-1 (]: dremio adapter: On model.silver.sales: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "silver", "target_name": "dev", "node_id": "model.silver.sales"} */
+
+  
+    
+
+  create table "catalog"."silver"."sales"
+   
+  
+  
+  
+  
+
+  
+
+  as (
+    
+
+SELECT
+    id,
+    customer_id,
+    vehicle_id,
+    TO_DATE(sale_date, 'MM/DD/YYYY') AS sale_date,
+    sale_price,
+    payment_method
+FROM "catalog"."bronze"."ecoride"."sales"
+  )
+  
+[0m03:12:06.514286 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m03:12:06.536813 [debug] [Thread-1 (]: dremio adapter: Connected to db: lakehouse
+[0m03:12:06.760173 [debug] [Thread-1 (]: dremio adapter: Job State = METADATA_RETRIEVAL
+[0m03:12:06.969043 [debug] [Thread-1 (]: dremio adapter: Job State = FAILED
+[0m03:12:06.969746 [debug] [Thread-1 (]: dremio adapter: Error running SQL: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "silver", "target_name": "dev", "node_id": "model.silver.sales"} */
+
+  
+    
+
+  create table "catalog"."silver"."sales"
+   
+  
+  
+  
+  
+
+  
+
+  as (
+    
+
+SELECT
+    id,
+    customer_id,
+    vehicle_id,
+    TO_DATE(sale_date, 'MM/DD/YYYY') AS sale_date,
+    sale_price,
+    payment_method
+FROM "catalog"."bronze"."ecoride"."sales"
+  )
+  
+[0m03:12:06.970257 [debug] [Thread-1 (]: On model.silver.sales: ROLLBACK
+[0m03:12:06.970752 [debug] [Thread-1 (]: dremio adapter: Handle rollback not implemented.
+[0m03:12:06.971208 [debug] [Thread-1 (]: On model.silver.sales: Close
+[0m03:12:06.973770 [debug] [Thread-1 (]: Runtime Error in model sales (models/ecoride/sales.sql)
+  ERROR: Object 'bronze' not found within 'catalog'. Please check that it exists in the selected context.
+[0m03:12:06.974364 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '7bac4834-4498-451b-8cb1-81de3b444ecc', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x759285451940>]}
+[0m03:12:06.975162 [error] [Thread-1 (]: 4 of 7 ERROR creating sql table model catalog.silver.sales ..................... [[31mERROR[0m in 0.47s]
+[0m03:12:06.975929 [debug] [Thread-1 (]: Finished running node model.silver.sales
+[0m03:12:06.976484 [debug] [Thread-1 (]: Began running node model.silver.stations
+[0m03:12:06.977163 [debug] [Thread-4 (]: Marking all children of 'model.silver.sales' to be skipped because of status 'error'.  Reason: Runtime Error in model sales (models/ecoride/sales.sql)
+  ERROR: Object 'bronze' not found within 'catalog'. Please check that it exists in the selected context..
+[0m03:12:06.977767 [info ] [Thread-1 (]: 5 of 7 START sql table model catalog.silver.stations ........................... [RUN]
+[0m03:12:06.978625 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly model.silver.sales, now model.silver.stations)
+[0m03:12:06.979156 [debug] [Thread-1 (]: Began compiling node model.silver.stations
+[0m03:12:06.982796 [debug] [Thread-1 (]: Writing injected SQL for node "model.silver.stations"
+[0m03:12:06.983570 [debug] [Thread-1 (]: Began executing node model.silver.stations
+[0m03:12:06.986663 [debug] [Thread-1 (]: Writing runtime sql for node "model.silver.stations"
+[0m03:12:06.987404 [debug] [Thread-1 (]: dremio adapter: Using dremio connection "model.silver.stations". fetch=False
+[0m03:12:06.987988 [debug] [Thread-1 (]: dremio adapter: On model.silver.stations: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "silver", "target_name": "dev", "node_id": "model.silver.stations"} */
+
+  
+    
+
+  create table "catalog"."silver"."stations"
+   
+  
+  
+  
+  
+
+  
+
+  as (
+    
+
+SELECT
+    id,
+    address,
+    city,
+    country,
+    number_of_chargers,
+    operational_status,
+    state,
+    station_type
+FROM "catalog"."bronze"."chargenet"."stations"
+  )
+  
+[0m03:12:06.988573 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m03:12:07.010620 [debug] [Thread-1 (]: dremio adapter: Connected to db: lakehouse
+[0m03:12:07.234098 [debug] [Thread-1 (]: dremio adapter: Job State = METADATA_RETRIEVAL
+[0m03:12:07.441536 [debug] [Thread-1 (]: dremio adapter: Job State = FAILED
+[0m03:12:07.442271 [debug] [Thread-1 (]: dremio adapter: Error running SQL: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "silver", "target_name": "dev", "node_id": "model.silver.stations"} */
+
+  
+    
+
+  create table "catalog"."silver"."stations"
+   
+  
+  
+  
+  
+
+  
+
+  as (
+    
+
+SELECT
+    id,
+    address,
+    city,
+    country,
+    number_of_chargers,
+    operational_status,
+    state,
+    station_type
+FROM "catalog"."bronze"."chargenet"."stations"
+  )
+  
+[0m03:12:07.442849 [debug] [Thread-1 (]: On model.silver.stations: ROLLBACK
+[0m03:12:07.443376 [debug] [Thread-1 (]: dremio adapter: Handle rollback not implemented.
+[0m03:12:07.443906 [debug] [Thread-1 (]: On model.silver.stations: Close
+[0m03:12:07.448219 [debug] [Thread-1 (]: Runtime Error in model stations (models/chargenet/stations.sql)
+  ERROR: Object 'bronze' not found within 'catalog'. Please check that it exists in the selected context.
+[0m03:12:07.448866 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '7bac4834-4498-451b-8cb1-81de3b444ecc', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7592841a11c0>]}
+[0m03:12:07.449629 [error] [Thread-1 (]: 5 of 7 ERROR creating sql table model catalog.silver.stations .................. [[31mERROR[0m in 0.47s]
+[0m03:12:07.450467 [debug] [Thread-1 (]: Finished running node model.silver.stations
+[0m03:12:07.451045 [debug] [Thread-1 (]: Began running node model.silver.vehicle_health_logs
+[0m03:12:07.451679 [debug] [Thread-4 (]: Marking all children of 'model.silver.stations' to be skipped because of status 'error'.  Reason: Runtime Error in model stations (models/chargenet/stations.sql)
+  ERROR: Object 'bronze' not found within 'catalog'. Please check that it exists in the selected context..
+[0m03:12:07.452301 [info ] [Thread-1 (]: 6 of 7 START sql table model catalog.silver.vehicle_health_logs ................ [RUN]
+[0m03:12:07.453152 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly model.silver.stations, now model.silver.vehicle_health_logs)
+[0m03:12:07.453699 [debug] [Thread-1 (]: Began compiling node model.silver.vehicle_health_logs
+[0m03:12:07.457621 [debug] [Thread-1 (]: Writing injected SQL for node "model.silver.vehicle_health_logs"
+[0m03:12:07.458680 [debug] [Thread-1 (]: Began executing node model.silver.vehicle_health_logs
+[0m03:12:07.461611 [debug] [Thread-1 (]: Writing runtime sql for node "model.silver.vehicle_health_logs"
+[0m03:12:07.462402 [debug] [Thread-1 (]: dremio adapter: Using dremio connection "model.silver.vehicle_health_logs". fetch=False
+[0m03:12:07.462991 [debug] [Thread-1 (]: dremio adapter: On model.silver.vehicle_health_logs: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "silver", "target_name": "dev", "node_id": "model.silver.vehicle_health_logs"} */
+
+  
+    
+
+  create table "catalog"."silver"."vehicle_health_logs"
+   
+  
+  
+  
+  
+
+  
+
+  as (
+    
+
+SELECT
+    VehicleID,
+    Model,
+    ManufacturingYear,
+    Alerts,
+    MaintenanceHistory
+FROM "catalog"."bronze"."vehicle_health"."logs"
+  )
+  
+[0m03:12:07.463538 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m03:12:07.485475 [debug] [Thread-1 (]: dremio adapter: Connected to db: lakehouse
+[0m03:12:07.707110 [debug] [Thread-1 (]: dremio adapter: Job State = METADATA_RETRIEVAL
+[0m03:12:07.916288 [debug] [Thread-1 (]: dremio adapter: Job State = FAILED
+[0m03:12:07.917242 [debug] [Thread-1 (]: dremio adapter: Error running SQL: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "silver", "target_name": "dev", "node_id": "model.silver.vehicle_health_logs"} */
+
+  
+    
+
+  create table "catalog"."silver"."vehicle_health_logs"
+   
+  
+  
+  
+  
+
+  
+
+  as (
+    
+
+SELECT
+    VehicleID,
+    Model,
+    ManufacturingYear,
+    Alerts,
+    MaintenanceHistory
+FROM "catalog"."bronze"."vehicle_health"."logs"
+  )
+  
+[0m03:12:07.918100 [debug] [Thread-1 (]: On model.silver.vehicle_health_logs: ROLLBACK
+[0m03:12:07.918997 [debug] [Thread-1 (]: dremio adapter: Handle rollback not implemented.
+[0m03:12:07.919844 [debug] [Thread-1 (]: On model.silver.vehicle_health_logs: Close
+[0m03:12:07.924583 [debug] [Thread-1 (]: Runtime Error in model vehicle_health_logs (models/vehicle_health/vehicle_health_logs.sql)
+  ERROR: Object 'bronze' not found within 'catalog'. Please check that it exists in the selected context.
+[0m03:12:07.925601 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '7bac4834-4498-451b-8cb1-81de3b444ecc', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7592841883e0>]}
+[0m03:12:07.926810 [error] [Thread-1 (]: 6 of 7 ERROR creating sql table model catalog.silver.vehicle_health_logs ....... [[31mERROR[0m in 0.47s]
+[0m03:12:07.928096 [debug] [Thread-1 (]: Finished running node model.silver.vehicle_health_logs
+[0m03:12:07.928999 [debug] [Thread-1 (]: Began running node model.silver.vehicles
+[0m03:12:07.929988 [debug] [Thread-4 (]: Marking all children of 'model.silver.vehicle_health_logs' to be skipped because of status 'error'.  Reason: Runtime Error in model vehicle_health_logs (models/vehicle_health/vehicle_health_logs.sql)
+  ERROR: Object 'bronze' not found within 'catalog'. Please check that it exists in the selected context..
+[0m03:12:07.930701 [info ] [Thread-1 (]: 7 of 7 START sql table model catalog.silver.vehicles ........................... [RUN]
+[0m03:12:07.931799 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly model.silver.vehicle_health_logs, now model.silver.vehicles)
+[0m03:12:07.932709 [debug] [Thread-1 (]: Began compiling node model.silver.vehicles
+[0m03:12:07.938621 [debug] [Thread-1 (]: Writing injected SQL for node "model.silver.vehicles"
+[0m03:12:07.939699 [debug] [Thread-1 (]: Began executing node model.silver.vehicles
+[0m03:12:07.944990 [debug] [Thread-1 (]: Writing runtime sql for node "model.silver.vehicles"
+[0m03:12:07.946143 [debug] [Thread-1 (]: dremio adapter: Using dremio connection "model.silver.vehicles". fetch=False
+[0m03:12:07.947118 [debug] [Thread-1 (]: dremio adapter: On model.silver.vehicles: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "silver", "target_name": "dev", "node_id": "model.silver.vehicles"} */
+
+  
+    
+
+  create table "catalog"."silver"."vehicles"
+   
+  
+  
+  
+  
+
+  
+
+  as (
+    
+
+SELECT
+    id,
+    model_name,
+    model_type,
+    color,
+    "year"
+FROM "catalog"."bronze"."ecoride"."vehicles"
+  )
+  
+[0m03:12:07.947994 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m03:12:07.971193 [debug] [Thread-1 (]: dremio adapter: Connected to db: lakehouse
+[0m03:12:08.197966 [debug] [Thread-1 (]: dremio adapter: Job State = METADATA_RETRIEVAL
+[0m03:12:08.404818 [debug] [Thread-1 (]: dremio adapter: Job State = FAILED
+[0m03:12:08.405585 [debug] [Thread-1 (]: dremio adapter: Error running SQL: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "silver", "target_name": "dev", "node_id": "model.silver.vehicles"} */
+
+  
+    
+
+  create table "catalog"."silver"."vehicles"
+   
+  
+  
+  
+  
+
+  
+
+  as (
+    
+
+SELECT
+    id,
+    model_name,
+    model_type,
+    color,
+    "year"
+FROM "catalog"."bronze"."ecoride"."vehicles"
+  )
+  
+[0m03:12:08.406149 [debug] [Thread-1 (]: On model.silver.vehicles: ROLLBACK
+[0m03:12:08.406693 [debug] [Thread-1 (]: dremio adapter: Handle rollback not implemented.
+[0m03:12:08.407190 [debug] [Thread-1 (]: On model.silver.vehicles: Close
+[0m03:12:08.410071 [debug] [Thread-1 (]: Runtime Error in model vehicles (models/ecoride/vehicles.sql)
+  ERROR: Object 'bronze' not found within 'catalog'. Please check that it exists in the selected context.
+[0m03:12:08.410704 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '7bac4834-4498-451b-8cb1-81de3b444ecc', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x759286b6fe00>]}
+[0m03:12:08.411426 [error] [Thread-1 (]: 7 of 7 ERROR creating sql table model catalog.silver.vehicles .................. [[31mERROR[0m in 0.48s]
+[0m03:12:08.412200 [debug] [Thread-1 (]: Finished running node model.silver.vehicles
+[0m03:12:08.412870 [debug] [Thread-4 (]: Marking all children of 'model.silver.vehicles' to be skipped because of status 'error'.  Reason: Runtime Error in model vehicles (models/ecoride/vehicles.sql)
+  ERROR: Object 'bronze' not found within 'catalog'. Please check that it exists in the selected context..
+[0m03:12:08.414251 [debug] [MainThread]: On master: ROLLBACK
+[0m03:12:08.414793 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m03:12:08.437754 [debug] [MainThread]: dremio adapter: Connected to db: lakehouse
+[0m03:12:08.438372 [debug] [MainThread]: dremio adapter: Handle rollback not implemented.
+[0m03:12:08.438910 [debug] [MainThread]: On master: ROLLBACK
+[0m03:12:08.439393 [debug] [MainThread]: dremio adapter: Handle rollback not implemented.
+[0m03:12:08.439876 [debug] [MainThread]: On master: Close
+[0m03:12:08.440459 [debug] [MainThread]: Connection 'master' was properly closed.
+[0m03:12:08.440927 [debug] [MainThread]: Connection 'model.silver.vehicles' was properly closed.
+[0m03:12:08.441509 [info ] [MainThread]: 
+[0m03:12:08.442119 [info ] [MainThread]: Finished running 7 table models in 0 hours 0 minutes and 5.00 seconds (5.00s).
+[0m03:12:08.443971 [debug] [MainThread]: Command end result
+[0m03:12:08.469667 [debug] [MainThread]: Wrote artifact WritableManifest to /workspaces/Sales-Copilot-Lakehouse/transformation/silver/target/manifest.json
+[0m03:12:08.471505 [debug] [MainThread]: Wrote artifact SemanticManifest to /workspaces/Sales-Copilot-Lakehouse/transformation/silver/target/semantic_manifest.json
+[0m03:12:08.477407 [debug] [MainThread]: Wrote artifact RunExecutionResult to /workspaces/Sales-Copilot-Lakehouse/transformation/silver/target/run_results.json
+[0m03:12:08.477902 [info ] [MainThread]: 
+[0m03:12:08.478547 [info ] [MainThread]: [31mCompleted with 7 errors, 0 partial successes, and 0 warnings:[0m
+[0m03:12:08.479113 [info ] [MainThread]: 
+[0m03:12:08.479745 [error] [MainThread]:   Runtime Error in model charging_sessions (models/chargenet/charging_sessions.sql)
+  ERROR: Object 'bronze' not found within 'catalog'. Please check that it exists in the selected context.
+[0m03:12:08.480280 [info ] [MainThread]: 
+[0m03:12:08.480888 [error] [MainThread]:   Runtime Error in model customers (models/ecoride/customers.sql)
+  ERROR: Object 'bronze' not found within 'catalog'. Please check that it exists in the selected context.
+[0m03:12:08.481408 [info ] [MainThread]: 
+[0m03:12:08.482012 [error] [MainThread]:   Runtime Error in model product_reviews (models/ecoride/product_reviews.sql)
+  ERROR: Object 'bronze' not found within 'catalog'. Please check that it exists in the selected context.
+[0m03:12:08.482547 [info ] [MainThread]: 
+[0m03:12:08.483186 [error] [MainThread]:   Runtime Error in model sales (models/ecoride/sales.sql)
+  ERROR: Object 'bronze' not found within 'catalog'. Please check that it exists in the selected context.
+[0m03:12:08.483786 [info ] [MainThread]: 
+[0m03:12:08.484552 [error] [MainThread]:   Runtime Error in model stations (models/chargenet/stations.sql)
+  ERROR: Object 'bronze' not found within 'catalog'. Please check that it exists in the selected context.
+[0m03:12:08.485298 [info ] [MainThread]: 
+[0m03:12:08.486192 [error] [MainThread]:   Runtime Error in model vehicle_health_logs (models/vehicle_health/vehicle_health_logs.sql)
+  ERROR: Object 'bronze' not found within 'catalog'. Please check that it exists in the selected context.
+[0m03:12:08.486709 [info ] [MainThread]: 
+[0m03:12:08.487533 [error] [MainThread]:   Runtime Error in model vehicles (models/ecoride/vehicles.sql)
+  ERROR: Object 'bronze' not found within 'catalog'. Please check that it exists in the selected context.
+[0m03:12:08.488307 [info ] [MainThread]: 
+[0m03:12:08.489015 [info ] [MainThread]: Done. PASS=0 WARN=0 ERROR=7 SKIP=0 TOTAL=7
+[0m03:12:08.490214 [debug] [MainThread]: Resource report: {"command_name": "run", "command_success": false, "command_wall_clock_time": 7.506996, "process_in_blocks": "4472", "process_kernel_time": 0.366629, "process_mem_max_rss": "116484", "process_out_blocks": "3504", "process_user_time": 4.08088}
+[0m03:12:08.491075 [debug] [MainThread]: Command `dbt run` failed at 03:12:08.490917 after 7.51 seconds
+[0m03:12:08.491952 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7592866769c0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7592861fa8a0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x759286023da0>]}
+[0m03:12:08.492811 [debug] [MainThread]: Flushing usage events
+[0m03:12:09.500291 [debug] [MainThread]: An error was encountered while trying to flush usage events

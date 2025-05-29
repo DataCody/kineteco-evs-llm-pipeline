@@ -1,0 +1,692 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="./">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="PEX Recipes and Notes" href="recipes.html" /><link rel="prev" title="Building .pex files" href="buildingpex.html" />
+
+    <link rel="shortcut icon" href="_static/pex-icon.png"/><!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
+        <title>PEX with included Python interpreter - Pex Docs (v2.40.1)</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">Pex Docs (v2.40.1)</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="_static/pex-logo-light.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="_static/pex-logo-dark.png" alt="Dark Logo"/>
+  </div>
+  
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="whatispex.html">What are .pex files?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="buildingpex.html">Building .pex files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="buildingpex.html#invoking-the-pex-utility">Invoking the <code class="docutils literal notranslate"><span class="pre">pex</span></code> utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="buildingpex.html#using-bdist-pex">Using <code class="docutils literal notranslate"><span class="pre">bdist_pex</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="buildingpex.html#using-pants">Using Pants</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">PEX with included Python interpreter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="recipes.html">PEX Recipes and Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/vars.html">PEX runtime environment variables</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="https://github.com/pex-tool/pex/blob/main/docs/scie.md?plain=true" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div><div class="edit-this-page">
+  <a class="muted-link" href="https://github.com/pex-tool/pex/edit/main/docs/scie.md" title="Edit this page">
+    <svg><use href="#svg-pencil"></use></svg>
+    <span class="visually-hidden">Edit this page</span>
+  </a>
+</div><div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="pex-with-included-python-interpreter">
+<h1>PEX with included Python interpreter<a class="headerlink" href="#pex-with-included-python-interpreter" title="Link to this heading">¶</a></h1>
+<p>You can include a Python interpreter in your PEX by adding <code class="docutils literal notranslate"><span class="pre">--scie</span> <span class="pre">eager</span></code> to your <code class="docutils literal notranslate"><span class="pre">pex</span></code> command
+line. Instead of a traditional <a class="reference external" href="https://peps.python.org/pep-0441/">PEP-441</a> PEX zip file, you’ll
+get a native executable that contains both a Python interpreter and your PEX’d code.</p>
+<section id="background">
+<h2>Background<a class="headerlink" href="#background" title="Link to this heading">¶</a></h2>
+<p>Traditional PEX files allow you to build and ship a hermetic Python application environment to other
+machines by just copying the PEX file there. There is a major caveat though: the machine must have a
+Python interpreter installed and on the <code class="docutils literal notranslate"><span class="pre">PATH</span></code> that is compatible with the application for the PEX
+to be able to run. Complicating things further, when executing the PEX file directly (e.g.:
+<code class="docutils literal notranslate"><span class="pre">./my.pex</span></code>), the PEX’s shebang must align with the names of Python binaries installed on the
+machine. If the shebang is looking for <code class="docutils literal notranslate"><span class="pre">python</span></code> but the machine only has <code class="docutils literal notranslate"><span class="pre">python3</span></code> - even if the
+underlying Python interpreter would be compatible - the operating system will fail to launch the PEX
+file. This usually can be mitigated by using <code class="docutils literal notranslate"><span class="pre">--sh-boot</span></code> to alter the boot mechanism from Python to
+a Posix-compatible shell at <code class="docutils literal notranslate"><span class="pre">/bin/sh</span></code>.  Although almost all Posix-compatible systems have a
+<code class="docutils literal notranslate"><span class="pre">/bin/sh</span></code> shell, that still leaves the problem of having a compatible Python pre-installed on that
+system as well.</p>
+<p>When you add the <code class="docutils literal notranslate"><span class="pre">--scie</span> <span class="pre">eager</span></code> option to your <code class="docutils literal notranslate"><span class="pre">pex</span></code> command line, Pex uses the <a class="reference external" href="https://science.scie.app/">science</a> <a class="reference external" href="https://github.com/a-scie/">projects</a> to produce what is known as a
+<code class="docutils literal notranslate"><span class="pre">scie</span></code> (pronounced like “ski”) binary powered by the <a class="reference external" href="https://github.com/astral-sh/python-build-standalone">Python Standalone Builds</a> CPython distributions or the distributions
+released by <a class="reference external" href="https://pypy.org/download.html">PyPy</a> depending on which interpreter your PEX targets.
+The end product looks and behaves like a traditional PEX except in two aspects:</p>
+<ul class="simple">
+<li><p>The PEX scie file is larger than the equivalent PEX file since it contains a Python distribution.</p></li>
+<li><p>The PEX scie file is a native executable binary.</p></li>
+</ul>
+<p>For example, here we create a traditional PEX, a <code class="docutils literal notranslate"><span class="pre">--sh-boot</span></code> PEX and a PEX scie and examine the
+resulting files:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a cowsay PEX in each style:</span>
+:<span class="p">;</span><span class="w"> </span>pex<span class="w"> </span>cowsay<span class="w"> </span>-c<span class="w"> </span>cowsay<span class="w"> </span>--inject-args<span class="o">=</span>-t<span class="w"> </span>--venv<span class="w"> </span>-o<span class="w"> </span>cowsay.pex
+:<span class="p">;</span><span class="w"> </span>pex<span class="w"> </span>cowsay<span class="w"> </span>-c<span class="w"> </span>cowsay<span class="w"> </span>--inject-args<span class="o">=</span>-t<span class="w"> </span>--venv<span class="w"> </span>--sh-boot<span class="w"> </span>-o<span class="w"> </span>cowsay-sh-boot.pex
+:<span class="p">;</span><span class="w"> </span>pex<span class="w"> </span>cowsay<span class="w"> </span>-c<span class="w"> </span>cowsay<span class="w"> </span>--inject-args<span class="o">=</span>-t<span class="w"> </span>--venv<span class="w"> </span>--scie<span class="w"> </span>eager<span class="w"> </span>-o<span class="w"> </span>cowsay
+
+<span class="c1"># See what these files look like:</span>
+:<span class="p">;</span><span class="w"> </span>head<span class="w"> </span>-1<span class="w"> </span>cowsay*
+<span class="o">==</span>&gt;<span class="w"> </span>cowsay<span class="w"> </span>&lt;<span class="o">==</span>
+ELF&gt;��@�8
+
+<span class="o">==</span>&gt;<span class="w"> </span>cowsay-sh-boot.pex<span class="w"> </span>&lt;<span class="o">==</span>
+<span class="c1">#!/bin/sh</span>
+
+<span class="o">==</span>&gt;<span class="w"> </span>cowsay.pex<span class="w"> </span>&lt;<span class="o">==</span>
+<span class="c1">#!/usr/bin/env python3.11</span>
+
+:<span class="p">;</span><span class="w"> </span>file<span class="w"> </span>cowsay*
+cowsay:<span class="w">             </span>ELF<span class="w"> </span><span class="m">64</span>-bit<span class="w"> </span>LSB<span class="w"> </span>pie<span class="w"> </span>executable,<span class="w"> </span>x86-64,<span class="w"> </span>version<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">(</span>SYSV<span class="o">)</span>,<span class="w"> </span>static-pie<span class="w"> </span>linked,<span class="w"> </span>BuildID<span class="o">[</span>sha1<span class="o">]=</span>f1f01ca2ad165fed27f8304d4b2fad02dcacdffe,<span class="w"> </span>stripped
+cowsay-sh-boot.pex:<span class="w"> </span>POSIX<span class="w"> </span>shell<span class="w"> </span>script<span class="w"> </span>executable<span class="w"> </span><span class="o">(</span>binary<span class="w"> </span>data<span class="o">)</span>
+cowsay.pex:<span class="w">         </span>Zip<span class="w"> </span>archive<span class="w"> </span>data,<span class="w"> </span>made<span class="w"> </span>by<span class="w"> </span>v2.0<span class="w"> </span>UNIX,<span class="w"> </span>extract<span class="w"> </span>using<span class="w"> </span>at<span class="w"> </span>least<span class="w"> </span>v2.0,<span class="w"> </span>last<span class="w"> </span>modified,<span class="w"> </span>last<span class="w"> </span>modified<span class="w"> </span>Sun,<span class="w"> </span>Jan<span class="w"> </span><span class="m">01</span><span class="w"> </span><span class="m">1980</span><span class="w"> </span><span class="m">00</span>:00:00,<span class="w"> </span>uncompressed<span class="w"> </span>size<span class="w"> </span><span class="m">0</span>,<span class="w"> </span><span class="nv">method</span><span class="o">=</span>deflate
+
+:<span class="p">;</span><span class="w"> </span>ls<span class="w"> </span>-sSh1<span class="w"> </span>cowsay*
+<span class="w"> </span>31M<span class="w"> </span>cowsay
+728K<span class="w"> </span>cowsay-sh-boot.pex
+724K<span class="w"> </span>cowsay.pex
+</pre></div>
+</div>
+<p>The PEX scie can even be inspected like a traditional PEX file:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>:<span class="p">;</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>pex<span class="w"> </span><span class="k">in</span><span class="w"> </span>cowsay*<span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$pex</span><span class="p">;</span><span class="w"> </span>unzip<span class="w"> </span>-l<span class="w"> </span><span class="nv">$pex</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-7<span class="p">;</span><span class="w"> </span>echo<span class="p">;</span><span class="w"> </span><span class="k">done</span>
+cowsay
+warning<span class="w"> </span><span class="o">[</span>cowsay<span class="o">]</span>:<span class="w">  </span><span class="m">31525759</span><span class="w"> </span>extra<span class="w"> </span>bytes<span class="w"> </span>at<span class="w"> </span>beginning<span class="w"> </span>or<span class="w"> </span>within<span class="w"> </span>zipfile
+<span class="w">  </span><span class="o">(</span>attempting<span class="w"> </span>to<span class="w"> </span>process<span class="w"> </span>anyway<span class="o">)</span>
+<span class="w">        </span><span class="m">7</span><span class="w">  </span><span class="m">1980</span>-01-01<span class="w"> </span><span class="m">00</span>:00<span class="w">   </span>.deps/cowsay-6.1-py3-none-any.whl/cowsay-6.1.dist-info/top_level.txt
+<span class="w">      </span><span class="m">873</span><span class="w">  </span><span class="m">1980</span>-01-01<span class="w"> </span><span class="m">00</span>:00<span class="w">   </span>PEX-INFO
+<span class="w">     </span><span class="m">7588</span><span class="w">  </span><span class="m">1980</span>-01-01<span class="w"> </span><span class="m">00</span>:00<span class="w">   </span>__main__.py
+<span class="w">        </span><span class="m">0</span><span class="w">  </span><span class="m">1980</span>-01-01<span class="w"> </span><span class="m">00</span>:00<span class="w">   </span>__pex__/
+<span class="w">     </span><span class="m">7561</span><span class="w">  </span><span class="m">1980</span>-01-01<span class="w"> </span><span class="m">00</span>:00<span class="w">   </span>__pex__/__init__.py
+---------<span class="w">                     </span>-------
+<span class="w">  </span><span class="m">2634753</span><span class="w">                     </span><span class="m">217</span><span class="w"> </span>files
+
+cowsay-sh-boot.pex
+<span class="w">        </span><span class="m">7</span><span class="w">  </span><span class="m">1980</span>-01-01<span class="w"> </span><span class="m">00</span>:00<span class="w">   </span>.deps/cowsay-6.1-py3-none-any.whl/cowsay-6.1.dist-info/top_level.txt
+<span class="w">      </span><span class="m">873</span><span class="w">  </span><span class="m">1980</span>-01-01<span class="w"> </span><span class="m">00</span>:00<span class="w">   </span>PEX-INFO
+<span class="w">     </span><span class="m">7588</span><span class="w">  </span><span class="m">1980</span>-01-01<span class="w"> </span><span class="m">00</span>:00<span class="w">   </span>__main__.py
+<span class="w">        </span><span class="m">0</span><span class="w">  </span><span class="m">1980</span>-01-01<span class="w"> </span><span class="m">00</span>:00<span class="w">   </span>__pex__/
+<span class="w">     </span><span class="m">7561</span><span class="w">  </span><span class="m">1980</span>-01-01<span class="w"> </span><span class="m">00</span>:00<span class="w">   </span>__pex__/__init__.py
+---------<span class="w">                     </span>-------
+<span class="w">  </span><span class="m">2634753</span><span class="w">                     </span><span class="m">217</span><span class="w"> </span>files
+
+cowsay.pex
+<span class="w">        </span><span class="m">7</span><span class="w">  </span><span class="m">1980</span>-01-01<span class="w"> </span><span class="m">00</span>:00<span class="w">   </span>.deps/cowsay-6.1-py3-none-any.whl/cowsay-6.1.dist-info/top_level.txt
+<span class="w">      </span><span class="m">873</span><span class="w">  </span><span class="m">1980</span>-01-01<span class="w"> </span><span class="m">00</span>:00<span class="w">   </span>PEX-INFO
+<span class="w">     </span><span class="m">7588</span><span class="w">  </span><span class="m">1980</span>-01-01<span class="w"> </span><span class="m">00</span>:00<span class="w">   </span>__main__.py
+<span class="w">        </span><span class="m">0</span><span class="w">  </span><span class="m">1980</span>-01-01<span class="w"> </span><span class="m">00</span>:00<span class="w">   </span>__pex__/
+<span class="w">     </span><span class="m">7561</span><span class="w">  </span><span class="m">1980</span>-01-01<span class="w"> </span><span class="m">00</span>:00<span class="w">   </span>__pex__/__init__.py
+---------<span class="w">                     </span>-------
+<span class="w">  </span><span class="m">2634753</span><span class="w">                     </span><span class="m">217</span><span class="w"> </span>files
+</pre></div>
+</div>
+<p>The performance of the PEX scie compares favorably, as you’d hope.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>:<span class="p">;</span><span class="w"> </span>hyperfine<span class="w"> </span>-w2<span class="w"> </span><span class="s1">&#39;./cowsay.pex Moo!&#39;</span><span class="w"> </span><span class="s1">&#39;./cowsay-sh-boot.pex Moo!&#39;</span><span class="w"> </span><span class="s1">&#39;./cowsay Moo!&#39;</span>
+Benchmark<span class="w"> </span><span class="m">1</span>:<span class="w"> </span>./cowsay.pex<span class="w"> </span>Moo!
+<span class="w">  </span>Time<span class="w"> </span><span class="o">(</span>mean<span class="w"> </span>±<span class="w"> </span>σ<span class="o">)</span>:<span class="w">      </span><span class="m">99</span>.2<span class="w"> </span>ms<span class="w"> </span>±<span class="w">   </span><span class="m">3</span>.7<span class="w"> </span>ms<span class="w">    </span><span class="o">[</span>User:<span class="w"> </span><span class="m">86</span>.4<span class="w"> </span>ms,<span class="w"> </span>System:<span class="w"> </span><span class="m">13</span>.7<span class="w"> </span>ms<span class="o">]</span>
+<span class="w">  </span>Range<span class="w"> </span><span class="o">(</span>min<span class="w"> </span>…<span class="w"> </span>max<span class="o">)</span>:<span class="w">    </span><span class="m">96</span>.1<span class="w"> </span>ms<span class="w"> </span>…<span class="w"> </span><span class="m">110</span>.7<span class="w"> </span>ms<span class="w">    </span><span class="m">30</span><span class="w"> </span>runs
+
+Benchmark<span class="w"> </span><span class="m">2</span>:<span class="w"> </span>./cowsay-sh-boot.pex<span class="w"> </span>Moo!
+<span class="w">  </span>Time<span class="w"> </span><span class="o">(</span>mean<span class="w"> </span>±<span class="w"> </span>σ<span class="o">)</span>:<span class="w">      </span><span class="m">17</span>.6<span class="w"> </span>ms<span class="w"> </span>±<span class="w">   </span><span class="m">0</span>.3<span class="w"> </span>ms<span class="w">    </span><span class="o">[</span>User:<span class="w"> </span><span class="m">15</span>.2<span class="w"> </span>ms,<span class="w"> </span>System:<span class="w"> </span><span class="m">2</span>.2<span class="w"> </span>ms<span class="o">]</span>
+<span class="w">  </span>Range<span class="w"> </span><span class="o">(</span>min<span class="w"> </span>…<span class="w"> </span>max<span class="o">)</span>:<span class="w">    </span><span class="m">16</span>.8<span class="w"> </span>ms<span class="w"> </span>…<span class="w">  </span><span class="m">18</span>.7<span class="w"> </span>ms<span class="w">    </span><span class="m">165</span><span class="w"> </span>runs
+
+Benchmark<span class="w"> </span><span class="m">3</span>:<span class="w"> </span>./cowsay<span class="w"> </span>Moo!
+<span class="w">  </span>Time<span class="w"> </span><span class="o">(</span>mean<span class="w"> </span>±<span class="w"> </span>σ<span class="o">)</span>:<span class="w">      </span><span class="m">16</span>.3<span class="w"> </span>ms<span class="w"> </span>±<span class="w">   </span><span class="m">0</span>.4<span class="w"> </span>ms<span class="w">    </span><span class="o">[</span>User:<span class="w"> </span><span class="m">13</span>.4<span class="w"> </span>ms,<span class="w"> </span>System:<span class="w"> </span><span class="m">2</span>.7<span class="w"> </span>ms<span class="o">]</span>
+<span class="w">  </span>Range<span class="w"> </span><span class="o">(</span>min<span class="w"> </span>…<span class="w"> </span>max<span class="o">)</span>:<span class="w">    </span><span class="m">15</span>.5<span class="w"> </span>ms<span class="w"> </span>…<span class="w">  </span><span class="m">18</span>.6<span class="w"> </span>ms<span class="w">    </span><span class="m">180</span><span class="w"> </span>runs
+
+Summary
+<span class="w">  </span>./cowsay<span class="w"> </span>Moo!<span class="w"> </span>ran
+<span class="w">    </span><span class="m">1</span>.08<span class="w"> </span>±<span class="w"> </span><span class="m">0</span>.03<span class="w"> </span><span class="nb">times</span><span class="w"> </span>faster<span class="w"> </span>than<span class="w"> </span>./cowsay-sh-boot.pex<span class="w"> </span>Moo!
+<span class="w">    </span><span class="m">6</span>.09<span class="w"> </span>±<span class="w"> </span><span class="m">0</span>.27<span class="w"> </span><span class="nb">times</span><span class="w"> </span>faster<span class="w"> </span>than<span class="w"> </span>./cowsay.pex<span class="w"> </span>Moo!
+</pre></div>
+</div>
+<p>But, unlike traditional PEXes, you can run the PEX scie anywhere:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># Traditional Python shebang boot:</span>
+:<span class="p">;</span><span class="w"> </span>env<span class="w"> </span>-i<span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="w"> </span>./cowsay.pex<span class="w"> </span>Moo!
+/usr/bin/env:<span class="w"> </span><span class="s1">&#39;python3.11&#39;</span>:<span class="w"> </span>No<span class="w"> </span>such<span class="w"> </span>file<span class="w"> </span>or<span class="w"> </span>directory
+
+<span class="c1"># A --sh-boot /bin/sh boot:</span>
+:<span class="p">;</span><span class="w"> </span>env<span class="w"> </span>-i<span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="w"> </span>./cowsay-sh-boot.pex<span class="w"> </span>Moo!
+Failed<span class="w"> </span>to<span class="w"> </span>find<span class="w"> </span>any<span class="w"> </span>of<span class="w"> </span>these<span class="w"> </span>python<span class="w"> </span>binaries<span class="w"> </span>on<span class="w"> </span>the<span class="w"> </span>PATH:
+python3.11
+python3.13
+...
+python3
+python2
+pypy3
+pypy2
+python
+pypy
+Either<span class="w"> </span>adjust<span class="w"> </span>your<span class="w"> </span><span class="nv">$PATH</span><span class="w"> </span>which<span class="w"> </span>is<span class="w"> </span>currently:
+
+Or<span class="w"> </span><span class="k">else</span><span class="w"> </span>install<span class="w"> </span>an<span class="w"> </span>appropriate<span class="w"> </span>Python<span class="w"> </span>that<span class="w"> </span>provides<span class="w"> </span>one<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>binaries<span class="w"> </span><span class="k">in</span><span class="w"> </span>this<span class="w"> </span>list.
+
+<span class="c1"># A hermetic scie boot:</span>
+:<span class="p">;</span><span class="w"> </span>env<span class="w"> </span>-i<span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="w"> </span>./cowsay<span class="w"> </span>Moo!
+<span class="w">  </span>____
+<span class="p">|</span><span class="w"> </span>Moo!<span class="w"> </span><span class="p">|</span>
+<span class="w">  </span><span class="o">====</span>
+<span class="w">    </span><span class="se">\</span>
+<span class="w">     </span><span class="se">\</span>
+<span class="w">       </span>^__^
+<span class="w">       </span><span class="o">(</span>oo<span class="o">)</span><span class="se">\_</span>______
+<span class="w">       </span><span class="o">(</span>__<span class="o">)</span><span class="se">\ </span><span class="w">      </span><span class="o">)</span><span class="se">\/\</span>
+<span class="w">           </span><span class="o">||</span>----w<span class="w"> </span><span class="p">|</span>
+<span class="w">           </span><span class="o">||</span><span class="w">     </span><span class="o">||</span>
+</pre></div>
+</div>
+</section>
+<section id="lazy-scies">
+<h2>Lazy scies<a class="headerlink" href="#lazy-scies" title="Link to this heading">¶</a></h2>
+<p>Specifying <code class="docutils literal notranslate"><span class="pre">--scie</span> <span class="pre">eager</span></code> includes a full Python distribution in your PEX scie. If you ship more
+than one PEX scie to a machine using the same Python version, this can be wasteful in transfer
+bandwidth and disk space. If your deployment machines have internet access, you can specify
+<code class="docutils literal notranslate"><span class="pre">--scie</span> <span class="pre">lazy</span></code> and the Python distribution will then be fetched from the internet, but only if
+needed. If a PEX scie (whether eager or lazy) using the same Python distribution has run previously
+on the machine, the fetch will be skipped and the local distribution used instead. This lazy
+fetching feature is powered by the <a class="reference external" href="https://github.com/a-scie/ptex"><code class="docutils literal notranslate"><span class="pre">ptex</span></code> binary</a> from the science
+projects, and you can read more there if you’re curious.</p>
+<p>If your network access is restricted, you can re-point the download location of the Python
+distribution by ensuring the machine has the environment variable <code class="docutils literal notranslate"><span class="pre">PEX_BOOTSTRAP_URLS</span></code> set to the
+path of a json file containing the new Python distribution URL. That file should look like:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;ptex&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;cpython-3.12.4+20240713-x86_64-unknown-linux-gnu-install_only.tar.gz&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;internal URL&gt;&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>You can run <code class="docutils literal notranslate"><span class="pre">SCIE=inspect</span> <span class="pre">&lt;your</span> <span class="pre">PEX</span> <span class="pre">scie&gt;</span> <span class="pre">|</span> <span class="pre">jq</span> <span class="pre">'{ptex:.ptex}'</span></code> to get a starter file with the
+correct default entries for your scie. You can then just edit the URLs. URLs of the form
+<code class="docutils literal notranslate"><span class="pre">file://&lt;absolute</span> <span class="pre">path&gt;</span></code> are accepted. The only restriction for any custom URL is that it returns a
+bytewise-identical copy of the Python distribution pointed to by the original URL. If the file
+content hash does not match, the PEX scie will fail to boot. For example:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># Build a lazy PEX scie:</span>
+:<span class="p">;</span><span class="w"> </span>pex<span class="w"> </span>cowsay<span class="w"> </span>-c<span class="w"> </span>cowsay<span class="w"> </span>--inject-args<span class="o">=</span>-t<span class="w"> </span>--scie<span class="w"> </span>lazy<span class="w"> </span>-o<span class="w"> </span>cowsay
+
+<span class="c1"># Generate a starter file for the alternate URLs:</span>
+:<span class="p">;</span><span class="w"> </span><span class="nv">SCIE</span><span class="o">=</span>inspect<span class="w"> </span>./cowsay<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;{ptex:.ptex}&#39;</span><span class="w"> </span>&gt;<span class="w"> </span>starter.json
+
+<span class="c1"># Copy to pythons.json and edit it to point to a file that does not contain the original Python</span>
+<span class="c1"># distribution:</span>
+:<span class="p">;</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;first(.ptex | .[]) = &quot;file:///etc/hosts&quot;&#39;</span><span class="w"> </span>starter.json<span class="w"> </span>&gt;<span class="w"> </span>pythons.json
+:<span class="p">;</span><span class="w"> </span>diff<span class="w"> </span>-u<span class="w"> </span>--label<span class="w"> </span>starter.json<span class="w"> </span>starter.json<span class="w"> </span>--label<span class="w"> </span>pythons.json<span class="w"> </span>pythons.json
+---<span class="w"> </span>starter.json
++++<span class="w"> </span>pythons.json
+@@<span class="w"> </span>-1,5<span class="w"> </span>+1,5<span class="w"> </span>@@
+<span class="w"> </span><span class="o">{</span>
+<span class="w">   </span><span class="s2">&quot;ptex&quot;</span>:<span class="w"> </span><span class="o">{</span>
+-<span class="w">    </span><span class="s2">&quot;cpython-3.11.9+20240726-x86_64-unknown-linux-gnu-install_only.tar.gz&quot;</span>:<span class="w"> </span><span class="s2">&quot;https://github.com/astral-sh/python-build-standalone/releases/download/20240726/cpython-3.11.9%2B20240726-x86_64-unknown-linux-gnu-install_only.tar.gz&quot;</span>
++<span class="w">    </span><span class="s2">&quot;cpython-3.11.9+20240726-x86_64-unknown-linux-gnu-install_only.tar.gz&quot;</span>:<span class="w"> </span><span class="s2">&quot;file:///etc/hosts&quot;</span>
+<span class="w">   </span><span class="o">}</span>
+<span class="w"> </span><span class="o">}</span>
+
+<span class="c1"># Clear the scie cache and try to run the lazy PEX scie:</span>
+:<span class="p">;</span><span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>~/.cache/nce
+:<span class="p">;</span><span class="w"> </span><span class="nv">PEX_BOOTSTRAP_URLS</span><span class="o">=</span>pythons.json<span class="w"> </span>./cowsay<span class="w"> </span>Moo!
+Error:<span class="w"> </span>Failed<span class="w"> </span>to<span class="w"> </span>establish<span class="w"> </span>atomic<span class="w"> </span>directory<span class="w"> </span>/home/jsirois/.cache/nce/0770bcb55edb6b8089bcc8cbe556d3f737f4a5e3a5cbc45e716206de554c0df9/locks/configure-ce4ae7966f25868830154e6fa8d56b0dd6e09cd2902ab837a4af55d51dc84d92.<span class="w"> </span>Population<span class="w"> </span>of<span class="w"> </span>work<span class="w"> </span>directory<span class="w"> </span>failed:<span class="w"> </span>Failed<span class="w"> </span>to<span class="w"> </span>establish<span class="w"> </span>atomic<span class="w"> </span>directory<span class="w"> </span>/home/jsirois/.cache/nce/f6e955dc9ddfcad74e77abe6f439dac48ebca14b101ed7c85a5bf3206ed2c53d/cpython-3.11.9+20240726-x86_64-unknown-linux-gnu-install_only.tar.gz.<span class="w"> </span>Population<span class="w"> </span>of<span class="w"> </span>work<span class="w"> </span>directory<span class="w"> </span>failed:<span class="w"> </span>The<span class="w"> </span>tar.gz<span class="w"> </span>destination<span class="w"> </span>/home/jsirois/.cache/nce/f6e955dc9ddfcad74e77abe6f439dac48ebca14b101ed7c85a5bf3206ed2c53d/cpython-3.11.9+20240726-x86_64-unknown-linux-gnu-install_only.tar.gz<span class="w"> </span>of<span class="w"> </span>size<span class="w"> </span><span class="m">410</span><span class="w"> </span>had<span class="w"> </span>unexpected<span class="w"> </span>hash:<span class="w"> </span>16183c427758316754b82e4d48d63c265ee46ec5ae96a40d9092e694dd5f77ab
+
+The<span class="w"> </span>./cowsay<span class="w"> </span>scie<span class="w"> </span>contains<span class="w"> </span>no<span class="w"> </span>alternate<span class="w"> </span>boot<span class="w"> </span>commands.
+</pre></div>
+</div>
+<p>Here we see the error <code class="docutils literal notranslate"><span class="pre">.../cpython-3.11.9+20240726-x86_64-unknown-linux-gnu-install_only.tar.gz</span> <span class="pre">of</span> <span class="pre">size</span> <span class="pre">410</span> <span class="pre">had</span> <span class="pre">unexpected</span> <span class="pre">hash:</span> <span class="pre">16183c427758316754b82e4d48d63c265ee46ec5ae96a40d9092e694dd5f77ab</span></code>. We
+can correct this by re-pointing to a valid file:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># Download the expected dstribution:</span>
+:<span class="p">;</span><span class="w"> </span>curl<span class="w"> </span>-fL<span class="w"> </span>https://github.com/astral-sh/python-build-standalone/releases/download/20240726/cpython-3.11.9%2B20240726-x86_64-unknown-linux-gnu-install_only.tar.gz<span class="w"> </span>&gt;<span class="w"> </span>/tmp/example
+
+<span class="c1"># Re-point to the now valid copy of the expected Python distribution:</span>
+:<span class="p">;</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;first(.ptex | .[]) = &quot;file:///tmp/example&quot;&#39;</span><span class="w"> </span>starter.json<span class="w"> </span>&gt;<span class="w"> </span>pythons.json
+:<span class="p">;</span><span class="w"> </span>diff<span class="w"> </span>-u<span class="w"> </span>--label<span class="w"> </span>starter.json<span class="w"> </span>starter.json<span class="w"> </span>--label<span class="w"> </span>pythons.json<span class="w"> </span>pythons.json
+---<span class="w"> </span>starter.json
++++<span class="w"> </span>pythons.json
+@@<span class="w"> </span>-1,5<span class="w"> </span>+1,5<span class="w"> </span>@@
+<span class="w"> </span><span class="o">{</span>
+<span class="w">   </span><span class="s2">&quot;ptex&quot;</span>:<span class="w"> </span><span class="o">{</span>
+-<span class="w">    </span><span class="s2">&quot;cpython-3.11.9+20240726-x86_64-unknown-linux-gnu-install_only.tar.gz&quot;</span>:<span class="w"> </span><span class="s2">&quot;https://github.com/astral-sh/python-build-standalone/releases/download/20240726/cpython-3.11.9%2B20240726-x86_64-unknown-linux-gnu-install_only.tar.gz&quot;</span>
++<span class="w">    </span><span class="s2">&quot;cpython-3.11.9+20240726-x86_64-unknown-linux-gnu-install_only.tar.gz&quot;</span>:<span class="w"> </span><span class="s2">&quot;file:///tmp/example&quot;</span>
+<span class="w">   </span><span class="o">}</span>
+<span class="w"> </span><span class="o">}</span>
+
+<span class="w"> </span><span class="c1"># And lazy bootstrapping from the Python distribution in /tmp/example now works:</span>
+<span class="w"> </span>:<span class="p">;</span><span class="w"> </span><span class="nv">PEX_BOOTSTRAP_URLS</span><span class="o">=</span>pythons.json<span class="w"> </span>./cowsay<span class="w"> </span>Moo!
+<span class="w">  </span>____
+<span class="p">|</span><span class="w"> </span>Moo!<span class="w"> </span><span class="p">|</span>
+<span class="w">  </span><span class="o">====</span>
+<span class="w">    </span><span class="se">\</span>
+<span class="w">     </span><span class="se">\</span>
+<span class="w">       </span>^__^
+<span class="w">       </span><span class="o">(</span>oo<span class="o">)</span><span class="se">\_</span>______
+<span class="w">       </span><span class="o">(</span>__<span class="o">)</span><span class="se">\ </span><span class="w">      </span><span class="o">)</span><span class="se">\/\</span>
+<span class="w">           </span><span class="o">||</span>----w<span class="w"> </span><span class="p">|</span>
+<span class="w">           </span><span class="o">||</span><span class="w">     </span><span class="o">||</span>
+</pre></div>
+</div>
+</section>
+<section id="busybox-scies">
+<h2>BusyBox scies<a class="headerlink" href="#busybox-scies" title="Link to this heading">¶</a></h2>
+<p>Scies support multiple commands, but, by default, <code class="docutils literal notranslate"><span class="pre">pex</span> <span class="pre">--scie</span> <span class="pre">...</span></code> generates a PEX scie that always
+executes the entry point you configured for your PEX. You can, of course, run the scie using
+<code class="docutils literal notranslate"><span class="pre">PEX_INTERPRETER</span></code>, <code class="docutils literal notranslate"><span class="pre">PEX_MODULE</span></code> and <code class="docutils literal notranslate"><span class="pre">PEX_SCRIPT</span></code> to modify the entry point just like you can with
+a normal PEX, but sometimes it can be convenient to seal in a small set of commands you wish to use
+for easier access. You do this by adding <code class="docutils literal notranslate"><span class="pre">--scie-busybox</span></code> to your <code class="docutils literal notranslate"><span class="pre">pex</span></code> command line with a list of
+entry points you wish to expose. These entry points can be arbitrary modules or functions within a
+module. They can also be console scripts from distributions in the PEX. The BusyBox entry point
+specifications accepted are detailed below:</p>
+<div class="table-wrapper colwidths-auto docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Form</p></th>
+<th class="head"><p>Example</p></th>
+<th class="head"><p>Effect</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;name&gt;=&lt;module&gt;</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">json=json.tool</span></code></p></td>
+<td><p>Add a <code class="docutils literal notranslate"><span class="pre">json</span></code> command that invokes the <code class="docutils literal notranslate"><span class="pre">json.tool</span></code> module.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;name&gt;=&lt;module&gt;:&lt;func&gt;</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uuid=uuid:uuid4</span></code></p></td>
+<td><p>Add a <code class="docutils literal notranslate"><span class="pre">uuid</span></code> command that invokes the <code class="docutils literal notranslate"><span class="pre">uuid4</span></code> function in the <code class="docutils literal notranslate"><span class="pre">uuid</span></code> module.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;name&gt;</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cowsay</span></code></p></td>
+<td><p>Add a <code class="docutils literal notranslate"><span class="pre">cowsay</span></code> command for the <code class="docutils literal notranslate"><span class="pre">cowsay</span></code> console script found anywhere in the PEX distributions.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">!&lt;name&gt;</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">!cowsay</span></code></p></td>
+<td><p>Exclude all <code class="docutils literal notranslate"><span class="pre">cowsay</span></code> console scripts found in the PEX distributions (For use with <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> and <code class="docutils literal notranslate"><span class="pre">&#64;&lt;project&gt;</span></code>).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;name&gt;&#64;&lt;project&gt;</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ansible&#64;ansible-core</span></code></p></td>
+<td><p>Add an <code class="docutils literal notranslate"><span class="pre">ansible</span></code> command for the <code class="docutils literal notranslate"><span class="pre">ansible</span></code> console script found in the <code class="docutils literal notranslate"><span class="pre">ansible-core</span></code> distributions in the PEX.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">!&lt;name&gt;&#64;&lt;project&gt;</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">!ansible&#64;ansible-core</span></code></p></td>
+<td><p>Exclude the <code class="docutils literal notranslate"><span class="pre">ansible</span></code> console script found in the <code class="docutils literal notranslate"><span class="pre">ansible-core</span></code> distributions in the PEX (For use with <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> and <code class="docutils literal notranslate"><span class="pre">&#64;ansible-core</span></code>).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&#64;&lt;project&gt;</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&#64;ansible-core</span></code></p></td>
+<td><p>Add a command for all console scripts found in the <code class="docutils literal notranslate"><span class="pre">ansible-core</span></code> distributions in the PEX.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">!&#64;&lt;project&gt;</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">!&#64;ansible-core</span></code></p></td>
+<td><p>Exclude all console scripts found in the <code class="docutils literal notranslate"><span class="pre">ansible-core</span></code> distributions in the PEX (For use with <code class="docutils literal notranslate"><span class="pre">&#64;</span></code>).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&#64;</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&#64;</span></code></p></td>
+<td><p>Add a command for all console scripts found in all project distributions in the PEX.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>For example, to build a BusyBox with tools both useful and frivolous:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># Build a PEX scie BusyBox with 3 commands:</span>
+:<span class="p">;</span><span class="w"> </span>pex<span class="w"> </span>cowsay<span class="w"> </span>-c<span class="w"> </span>cowsay<span class="w"> </span>--inject-args<span class="o">=</span>-t<span class="w"> </span>--scie<span class="w"> </span>lazy<span class="w"> </span>--scie-busybox<span class="w"> </span><span class="nv">json</span><span class="o">=</span>json.tool,uuid<span class="o">=</span>uuid:uuid4,cowsay<span class="w"> </span>-otools
+
+<span class="c1"># Run the BusyBox to discover what commands it contains:</span>
+:<span class="p">;</span><span class="w"> </span>./tools
+Error:<span class="w"> </span>Could<span class="w"> </span>not<span class="w"> </span>determine<span class="w"> </span>which<span class="w"> </span><span class="nb">command</span><span class="w"> </span>to<span class="w"> </span>run.
+
+Please<span class="w"> </span><span class="k">select</span><span class="w"> </span>from<span class="w"> </span>the<span class="w"> </span>following<span class="w"> </span>boot<span class="w"> </span>commands:
+
+cowsay
+json
+uuid
+
+You<span class="w"> </span>can<span class="w"> </span><span class="k">select</span><span class="w"> </span>a<span class="w"> </span>boot<span class="w"> </span><span class="nb">command</span><span class="w"> </span>by<span class="w"> </span>setting<span class="w"> </span>the<span class="w"> </span>SCIE_BOOT<span class="w"> </span>environment<span class="w"> </span>variable<span class="w"> </span>or<span class="w"> </span><span class="k">else</span><span class="w"> </span>by<span class="w"> </span>passing<span class="w"> </span>it<span class="w"> </span>as<span class="w"> </span>the<span class="w"> </span>1st<span class="w"> </span>argument.
+
+<span class="c1"># Use the tools:</span>
+:<span class="p">;</span><span class="w"> </span>./tools<span class="w"> </span>uuid
+16269f0f-76f5-4374-9da2-e0e873c40835
+:<span class="p">;</span><span class="w"> </span>./tools<span class="w"> </span>uuid
+00e2584d-a5d3-40d9-9217-9a873fe7cac8
+:<span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;{&quot;Hello&quot;:&quot;World!&quot;}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>./tools<span class="w"> </span>json
+<span class="o">{</span>
+<span class="w">    </span><span class="s2">&quot;Hello&quot;</span>:<span class="w"> </span><span class="s2">&quot;World!&quot;</span>
+<span class="o">}</span>
+
+<span class="c1"># Install the tools on the $PATH individually for convenient access:</span>
+:<span class="p">;</span><span class="w"> </span>mkdir<span class="w"> </span>/tmp/bin
+:<span class="p">;</span><span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span>/tmp/bin:<span class="nv">$PATH</span>
+:<span class="p">;</span><span class="w"> </span><span class="nv">SCIE</span><span class="o">=</span>install<span class="w"> </span>./tools<span class="w"> </span>/tmp/bin
+:<span class="p">;</span><span class="w"> </span>ls<span class="w"> </span>-1<span class="w"> </span>/tmp/bin/
+cowsay
+json
+uuid
+:<span class="p">;</span><span class="w"> </span>which<span class="w"> </span>cowsay
+/tmp/bin/cowsay
+:<span class="p">;</span><span class="w"> </span>cowsay<span class="w"> </span>Moo!
+<span class="w">  </span>____
+<span class="p">|</span><span class="w"> </span>Moo!<span class="w"> </span><span class="p">|</span>
+<span class="w">  </span><span class="o">====</span>
+<span class="w">    </span><span class="se">\</span>
+<span class="w">     </span><span class="se">\</span>
+<span class="w">       </span>^__^
+<span class="w">       </span><span class="o">(</span>oo<span class="o">)</span><span class="se">\_</span>______
+<span class="w">       </span><span class="o">(</span>__<span class="o">)</span><span class="se">\ </span><span class="w">      </span><span class="o">)</span><span class="se">\/\</span>
+<span class="w">           </span><span class="o">||</span>----w<span class="w"> </span><span class="p">|</span>
+<span class="w">           </span><span class="o">||</span><span class="w">     </span><span class="o">||</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="recipes.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">PEX Recipes and Notes</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="buildingpex.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Building .pex files</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2025, Pex project contributors
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            <div class="icons">
+              <a class="muted-link " href="https://pypi.org/project/pex/2.40.1/" aria-label="PyPI"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+    <path d="M439.8 200.5c-7.7-30.9-22.3-54.2-53.4-54.2h-40.1v47.4c0 36.8-31.2 67.8-66.8 67.8H172.7c-29.2 0-53.4 25-53.4 54.3v101.8c0 29 25.2 46 53.4 54.3 33.8 9.9 66.3 11.7 106.8 0 26.9-7.8 53.4-23.5 53.4-54.3v-40.7H226.2v-13.6h160.2c31.1 0 42.6-21.7 53.4-54.2 11.2-33.5 10.7-65.7 0-108.6zM286.2 404c11.1 0 20.1 9.1 20.1 20.3 0 11.3-9 20.4-20.1 20.4-11 0-20.1-9.2-20.1-20.4.1-11.3 9.1-20.3 20.1-20.3zM167.8 248.1h106.8c29.7 0 53.4-24.5 53.4-54.3V91.9c0-29-24.4-50.7-53.4-55.6-35.8-5.9-74.7-5.6-106.8.1-45.2 8-53.4 24.7-53.4 55.6v40.7h106.9v13.6h-147c-31.1 0-58.3 18.7-66.8 54.2-9.8 40.7-10.2 66.1 0 108.6 7.6 31.6 25.7 54.2 56.8 54.2H101v-48.8c0-35.3 30.5-66.4 66.8-66.4zm-6.7-142.6c-11.1 0-20.1-9.1-20.1-20.3.1-11.3 9-20.4 20.1-20.4 11 0 20.1 9.2 20.1 20.4s-9 20.3-20.1 20.3z">
+    </path>
+</svg>
+</a>
+              <a class="muted-link " href="https://github.com/pex-tool/pex/releases/download/v2.40.1/pex" aria-label="Download"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 640 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+    <path d="M537.6 226.6c4.1-10.7 6.4-22.4 6.4-34.6 0-53-43-96-96-96-19.7 0-38.1 6-53.3 16.2C367 64.2 315.3 32 256 32c-88.4 0-160 71.6-160 160 0 2.7.1 5.4.2 8.1C40.2 219.8 0 273.2 0 336c0 79.5 64.5 144 144 144h368c70.7 0 128-57.3 128-128 0-61.9-44-113.6-102.4-125.4zm-132.9 88.7L299.3 420.7c-6.2 6.2-16.4 6.2-22.6 0L171.3 315.3c-10.1-10.1-2.9-27.3 11.3-27.3H248V176c0-8.8 7.2-16 16-16h48c8.8 0 16 7.2 16 16v112h65.4c14.2 0 21.4 17.2 11.3 27.3z">
+    </path>
+</svg>
+</a>
+              <a class="muted-link " href="https://github.com/pex-tool/pex" aria-label="Source"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 496 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+    <path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z">
+    </path>
+</svg>
+</a>
+              
+            </div>
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">PEX with included Python interpreter</a><ul>
+<li><a class="reference internal" href="#background">Background</a></li>
+<li><a class="reference internal" href="#lazy-scies">Lazy scies</a></li>
+<li><a class="reference internal" href="#busybox-scies">BusyBox scies</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="_static/documentation_options.js?v=9a34425d"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/furo.js?v=5fa4622c"></script>
+    
+<script type="module">
+    await import('/_pagefind/pagefind-highlight.js');
+    new PagefindHighlight({ highlightParam: "highlight" });
+</script></body>
+</html>
