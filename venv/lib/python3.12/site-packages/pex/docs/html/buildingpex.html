@@ -1,0 +1,729 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="./">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="PEX with included Python interpreter" href="scie.html" /><link rel="prev" title="What are .pex files?" href="whatispex.html" />
+
+    <link rel="shortcut icon" href="_static/pex-icon.png"/><!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
+        <title>Building .pex files - Pex Docs (v2.40.1)</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">Pex Docs (v2.40.1)</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="_static/pex-logo-light.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="_static/pex-logo-dark.png" alt="Dark Logo"/>
+  </div>
+  
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="whatispex.html">What are .pex files?</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Building .pex files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#invoking-the-pex-utility">Invoking the <code class="docutils literal notranslate"><span class="pre">pex</span></code> utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#using-bdist-pex">Using <code class="docutils literal notranslate"><span class="pre">bdist_pex</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="#using-pants">Using Pants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scie.html">PEX with included Python interpreter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="recipes.html">PEX Recipes and Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/vars.html">PEX runtime environment variables</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="https://github.com/pex-tool/pex/blob/main/docs/buildingpex.rst?plain=true" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div><div class="edit-this-page">
+  <a class="muted-link" href="https://github.com/pex-tool/pex/edit/main/docs/buildingpex.rst" title="Edit this page">
+    <svg><use href="#svg-pencil"></use></svg>
+    <span class="visually-hidden">Edit this page</span>
+  </a>
+</div><div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="building-pex-files">
+<span id="buildingpex"></span><h1>Building .pex files<a class="headerlink" href="#building-pex-files" title="Link to this heading">¶</a></h1>
+<p>You can build .pex files using the <code class="docutils literal notranslate"><span class="pre">pex</span></code> utility, which is made available when you <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pex</span></code>.
+Do this within a virtualenv, then you can use pex to bootstrap itself:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pex<span class="w"> </span>pex<span class="w"> </span>-c<span class="w"> </span>pex<span class="w"> </span>-o<span class="w"> </span>~/bin/pex
+</pre></div>
+</div>
+<p>This command creates a pex file containing pex, using the console script named “pex”, saving it in
+~/bin/pex.  At this point, assuming ~/bin is on your $PATH, then you can use pex in or outside of
+any virtualenv.</p>
+<p>This is described in more detail below.</p>
+</section>
+<section id="invoking-the-pex-utility">
+<h1>Invoking the <code class="docutils literal notranslate"><span class="pre">pex</span></code> utility<a class="headerlink" href="#invoking-the-pex-utility" title="Link to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">pex</span></code> utility has no required arguments and by default will construct an empty environment
+and invoke it.  When no entry point is specified, “invocation” means starting an interpreter:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pex
+<span class="go">Pex 2.16.1 ephemeral hermetic environment with no dependencies.</span>
+<span class="go">Exit the repl (type quit()) and run `pex -h` for Pex CLI help.</span>
+<span class="go">Python 3.11.9 (main, Apr 26 2024, 19:20:24) [GCC 13.2.0] on linux</span>
+<span class="go">Type &quot;help&quot;, &quot;pex&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<p>This creates an ephemeral environment that only exists for the duration of the <code class="docutils literal notranslate"><span class="pre">pex</span></code> command invocation
+and is garbage collected immediately on exit.</p>
+<p>You can tailor which interpreter is used by specifying <code class="docutils literal notranslate"><span class="pre">--python=PATH</span></code>.  PATH can be either the
+absolute path of a Python binary or the name of a Python interpreter within the environment, e.g.:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pex
+<span class="go">Pex 2.16.1 ephemeral hermetic environment with no dependencies.</span>
+<span class="go">Exit the repl (type quit()) and run `pex -h` for Pex CLI help.</span>
+<span class="go">Python 3.11.9 (main, Apr 26 2024, 19:20:24) [GCC 13.2.0] on linux</span>
+<span class="go">Type &quot;help&quot;, &quot;pex&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.</span>
+<span class="go">&gt;&gt;&gt; print &quot;This won&#39;t work!&quot;</span>
+<span class="go">  File &quot;&lt;console&gt;&quot;, line 1</span>
+<span class="go">    print &quot;This won&#39;t work!&quot;</span>
+<span class="go">    ^^^^^^^^^^^^^^^^^^^^^^^^</span>
+<span class="go">SyntaxError: Missing parentheses in call to &#39;print&#39;. Did you mean print(...)?</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">$ </span>pex<span class="w"> </span>--python<span class="o">=</span>python2.7
+<span class="go">Pex 2.16.1 ephemeral hermetic environment with no dependencies.</span>
+<span class="go">Python 2.7.18 (default, Apr 26 2024, 19:14:20)</span>
+<span class="go">[GCC 13.2.0] on linux2</span>
+<span class="go">Type &quot;help&quot;, &quot;pex&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.</span>
+<span class="go">&gt;&gt;&gt; print &quot;This works.&quot;</span>
+<span class="go">This works.</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<section id="specifying-requirements">
+<h2>Specifying requirements<a class="headerlink" href="#specifying-requirements" title="Link to this heading">¶</a></h2>
+<p>Requirements are specified using the same form as expected by <code class="docutils literal notranslate"><span class="pre">pip</span></code> and <code class="docutils literal notranslate"><span class="pre">setuptools</span></code>, e.g.
+<code class="docutils literal notranslate"><span class="pre">flask</span></code>, <code class="docutils literal notranslate"><span class="pre">setuptools==2.1.2</span></code>, <code class="docutils literal notranslate"><span class="pre">Django&gt;=1.4,&lt;1.6</span></code>.  These are specified as arguments to pex
+and any number (including 0) may be specified.  For example, to start an environment with <code class="docutils literal notranslate"><span class="pre">flask</span></code>
+and <code class="docutils literal notranslate"><span class="pre">psutil&gt;1</span></code>:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pex<span class="w"> </span>flask<span class="w"> </span><span class="s1">&#39;psutil&gt;1&#39;</span>
+<span class="go">Pex 2.16.1 ephemeral hermetic environment with 2 requirements and 8 activated distributions.</span>
+<span class="go">Python 3.11.9 (main, Apr 26 2024, 19:20:24) [GCC 13.2.0] on linux</span>
+<span class="go">Type &quot;help&quot;, &quot;pex&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<p>You can then import and manipulate modules like you would otherwise:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt;&gt;&gt; import flask</span>
+<span class="go">&gt;&gt;&gt; import psutil</span>
+<span class="go">&gt;&gt;&gt; ...</span>
+</pre></div>
+</div>
+<p>Conveniently, the output of <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">freeze</span></code> (a list of pinned dependencies) can be passed directly to <code class="docutils literal notranslate"><span class="pre">pex</span></code>. This provides a handy way to freeze a virtualenv into a PEX file.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pex<span class="w"> </span><span class="k">$(</span>pip<span class="w"> </span>freeze<span class="k">)</span><span class="w"> </span>-o<span class="w"> </span>my_application.pex
+</pre></div>
+</div>
+<p>A <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> file may also be used, just as with <code class="docutils literal notranslate"><span class="pre">pip</span></code>.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pex<span class="w"> </span>-r<span class="w"> </span>requirements.txt<span class="w"> </span>-o<span class="w"> </span>my_application.pex
+</pre></div>
+</div>
+</section>
+<section id="specifying-entry-points">
+<h2>Specifying entry points<a class="headerlink" href="#specifying-entry-points" title="Link to this heading">¶</a></h2>
+<p>Entry points define how the environment is executed and may be specified in one of three ways.</p>
+<section id="pex-options-script-py">
+<h3>pex &lt;options&gt; – script.py<a class="headerlink" href="#pex-options-script-py" title="Link to this heading">¶</a></h3>
+<p>As mentioned above, if no entry points are specified, the default behavior is to emulate an
+interpreter.  First we create a simple flask application:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cat<span class="w"> </span>&lt;&lt;EOF<span class="w"> </span>&gt;<span class="w"> </span>flask_hello_world.py
+<span class="go">from flask import Flask</span>
+<span class="go">app = Flask(__name__)</span>
+
+<span class="go">@app.route(&#39;/&#39;)</span>
+<span class="go">def hello_world():</span>
+<span class="go">    return &#39;hello world!&#39;</span>
+
+<span class="go">app.run()</span>
+<span class="go">EOF</span>
+</pre></div>
+</div>
+<p>Then, like an interpreter, if a source file is specified as a parameter to pex, it is invoked:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pex<span class="w"> </span>flask<span class="w"> </span>--<span class="w"> </span>./flask_hello_world.py
+<span class="go"> * Serving Flask app &#39;__main__&#39;</span>
+<span class="go"> * Debug mode: off</span>
+<span class="go">WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.</span>
+<span class="go"> * Running on http://127.0.0.1:5000</span>
+<span class="go">Press CTRL+C to quit</span>
+</pre></div>
+</div>
+</section>
+<section id="pex-m">
+<h3>pex -m<a class="headerlink" href="#pex-m" title="Link to this heading">¶</a></h3>
+<p>Your code may be within the PEX file or it may be some predetermined entry point
+within the standard library.  <code class="docutils literal notranslate"><span class="pre">pex</span> <span class="pre">-m</span></code> behaves very similarly to <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span></code>.  Consider
+<code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pydoc</span></code>:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python<span class="w"> </span>-m<span class="w"> </span>pydoc
+<span class="go">pydoc - the Python documentation tool</span>
+
+<span class="go">pydoc &lt;name&gt; ...</span>
+<span class="go">    Show text documentation on something.  &lt;name&gt; may be the name of a</span>
+<span class="go">    Python keyword, topic, function, module, or package, or a dotted</span>
+<span class="go">    reference to a class or function within a module or module in a</span>
+<span class="go">    ...</span>
+</pre></div>
+</div>
+<p>This can be emulated using the <code class="docutils literal notranslate"><span class="pre">pex</span></code> tool using <code class="docutils literal notranslate"><span class="pre">-m</span> <span class="pre">pydoc</span></code>:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pex<span class="w"> </span>-m<span class="w"> </span>pydoc
+<span class="go">pydoc - the Python documentation tool</span>
+
+<span class="go">pydoc &lt;name&gt; ...</span>
+<span class="go">    Show text documentation on something.  &lt;name&gt; may be the name of a</span>
+<span class="go">    Python keyword, topic, function, module, or package, or a dotted</span>
+<span class="go">    reference to a class or function within a module or module in a</span>
+<span class="go">    ...</span>
+</pre></div>
+</div>
+<p>Arguments will be passed unescaped following <code class="docutils literal notranslate"><span class="pre">--</span></code> on the command line.  So in order to
+get pydoc help on the <code class="docutils literal notranslate"><span class="pre">flask.app</span></code> package in Flask:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nv">TERM</span><span class="o">=</span>dumb<span class="w"> </span>pex<span class="w"> </span>flask<span class="w"> </span>-m<span class="w"> </span>pydoc<span class="w"> </span>--<span class="w"> </span>flask.app
+<span class="go">Help on module flask.app in flask:</span>
+
+<span class="go">NAME</span>
+<span class="go">    flask.app</span>
+
+<span class="go">CLASSES</span>
+<span class="go">    flask.sansio.app.App(flask.sansio.scaffold.Scaffold)</span>
+<span class="go">        Flask</span>
+
+<span class="go">    class Flask(flask.sansio.app.App)</span>
+<span class="go">...</span>
+</pre></div>
+</div>
+<p>and so forth.</p>
+<p>Entry points can also take the form <code class="docutils literal notranslate"><span class="pre">package:target</span></code>, such as <code class="docutils literal notranslate"><span class="pre">sphinx:main</span></code> or
+<code class="docutils literal notranslate"><span class="pre">fabric.main:main</span></code> for Sphinx and Fabric respectively.  This is roughly equivalent to running a
+script that does <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">sys,</span> <span class="pre">from</span> <span class="pre">package</span> <span class="pre">import</span> <span class="pre">target;</span> <span class="pre">sys.exit(target())</span></code>.</p>
+<p>This can be a powerful way to invoke Python applications without ever having to <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code>
+anything, for example a one-off invocation of Sphinx with the readthedocs theme available:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pex<span class="w"> </span>--python<span class="w"> </span>python2.7<span class="w"> </span><span class="nv">sphinx</span><span class="o">==</span><span class="m">1</span>.2.2<span class="w"> </span><span class="nv">sphinx_rtd_theme</span><span class="o">==</span><span class="m">0</span>.1.6<span class="w"> </span>-e<span class="w"> </span>sphinx:main<span class="w"> </span>--<span class="w"> </span>--help
+<span class="go">Sphinx v1.2.2</span>
+<span class="go">Usage: /tmp/tmp19tsy1r0 [options] sourcedir outdir [filenames...]</span>
+
+<span class="go">General options</span>
+<span class="go">^^^^^^^^^^^^^^^</span>
+<span class="go">-b &lt;builder&gt;  builder to use; default is html</span>
+<span class="go">-a            write all files; default is to only write new and changed files</span>
+<span class="go">-E            don&#39;t use a saved environment, always read all files</span>
+<span class="go">...</span>
+</pre></div>
+</div>
+<p>Although sys.exit is applied blindly to the return value of the target function, this probably does
+what you want due to very flexible <code class="docutils literal notranslate"><span class="pre">sys.exit</span></code> semantics. Consult your target function and
+<a class="reference external" href="https://docs.python.org/library/sys.html#sys.exit">sys.exit</a> documentation to be sure.</p>
+<p>Almost certainly better and more stable, you can alternatively specify a console script exported by
+the app as explained below.</p>
+</section>
+<section id="pex-c">
+<h3>pex -c<a class="headerlink" href="#pex-c" title="Link to this heading">¶</a></h3>
+<p>If you don’t know the <code class="docutils literal notranslate"><span class="pre">package:target</span></code> for the console scripts of your favorite python packages,
+pex allows you to use <code class="docutils literal notranslate"><span class="pre">-c</span></code> to specify a console script as defined by the distribution. For
+example, Fabric provides the <code class="docutils literal notranslate"><span class="pre">fab</span></code> tool when pip installed:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pex<span class="w"> </span>Fabric<span class="w"> </span>-c<span class="w"> </span>fab<span class="w"> </span>--<span class="w"> </span>--help
+<span class="go">Usage: tmpm_gu_7vf [--core-opts] task1 [--task1-opts] ... taskN [--taskN-opts]</span>
+
+<span class="go">Core options:</span>
+
+<span class="go">  --complete                         Print tab-completion candidates for given parse remainder.</span>
+<span class="go">...</span>
+</pre></div>
+</div>
+<p>Even scripts defined by the “scripts” section of a distribution can be used, e.g. with boto:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python2.7<span class="w"> </span>-mpex<span class="w"> </span>boto<span class="w"> </span>-c<span class="w"> </span>mturk
+<span class="go">usage: mturk [-h] [-P] [--nicknames PATH]</span>
+<span class="go">             {bal,hit,hits,new,extend,expire,rm,as,approve,reject,unreject,bonus,notify,give-qual,revoke-qual}</span>
+<span class="go">             ...</span>
+<span class="go">mturk: error: too few arguments</span>
+</pre></div>
+</div>
+<p>Note: If you run <code class="docutils literal notranslate"><span class="pre">pex</span> <span class="pre">-c</span></code> and come across an error similar to
+<code class="docutils literal notranslate"><span class="pre">pex.pex_builder.InvalidExecutableSpecification:</span> <span class="pre">Could</span> <span class="pre">not</span> <span class="pre">find</span> <span class="pre">script</span> <span class="pre">'mainscript.py'</span> <span class="pre">in</span> <span class="pre">any</span> <span class="pre">distribution</span> <span class="pre">within</span> <span class="pre">PEX!</span></code>,
+double-check your setup.py and ensure that <code class="docutils literal notranslate"><span class="pre">mainscript.py</span></code> is included
+in your setup’s <code class="docutils literal notranslate"><span class="pre">scripts</span></code> array. If you are using <code class="docutils literal notranslate"><span class="pre">console_scripts</span></code> and
+run into this error, double check your <code class="docutils literal notranslate"><span class="pre">console_scripts</span></code> syntax - further
+information for both <code class="docutils literal notranslate"><span class="pre">scripts</span></code> and <code class="docutils literal notranslate"><span class="pre">console_scripts</span></code> can be found in the
+<a class="reference external" href="https://python-packaging.readthedocs.io/en/latest/command-line-scripts.html">Python packaging documentation</a>.</p>
+</section>
+</section>
+<section id="saving-pex-files">
+<h2>Saving .pex files<a class="headerlink" href="#saving-pex-files" title="Link to this heading">¶</a></h2>
+<p>Each of the commands above have been manipulating ephemeral PEX environments – environments that only
+exist for the duration of the pex command lifetime and immediately garbage collected.</p>
+<p>If the <code class="docutils literal notranslate"><span class="pre">-o</span> <span class="pre">PATH</span></code> option is specified, a PEX file of the environment is saved to disk at <code class="docutils literal notranslate"><span class="pre">PATH</span></code>.  For example
+we can package a standalone Sphinx as above:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pex<span class="w"> </span>ansible<span class="w"> </span>-c<span class="w"> </span>ansible<span class="w"> </span>-o<span class="w"> </span>ansible.pex
+</pre></div>
+</div>
+<p>Instead of executing the environment, it is saved to disk:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>ls<span class="w"> </span>-l<span class="w"> </span>ansible.pex
+<span class="go">-rwxr-xr-x 1 jsirois jsirois 58424496 Aug 13 11:39 ansible.pex</span>
+</pre></div>
+</div>
+<p>This is an executable environment and can be executed as before:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>./ansible.pex<span class="w"> </span>--help
+<span class="go">usage: ansible [-h] [--version] [-v] [-b] [--become-method BECOME_METHOD]</span>
+<span class="go">               [--become-user BECOME_USER]</span>
+<span class="go">               [-K | --become-password-file BECOME_PASSWORD_FILE]</span>
+<span class="go">               [-i INVENTORY] [--list-hosts] [-l SUBSET] [-P POLL_INTERVAL]</span>
+<span class="go">               [-B SECONDS] [-o] [-t TREE] [--private-key PRIVATE_KEY_FILE]</span>
+<span class="go">               [-u REMOTE_USER] [-c CONNECTION] [-T TIMEOUT]</span>
+<span class="go">               [--ssh-common-args SSH_COMMON_ARGS]</span>
+<span class="go">               [--sftp-extra-args SFTP_EXTRA_ARGS]</span>
+<span class="go">               [--scp-extra-args SCP_EXTRA_ARGS]</span>
+<span class="go">               [--ssh-extra-args SSH_EXTRA_ARGS]</span>
+<span class="go">               [-k | --connection-password-file CONNECTION_PASSWORD_FILE] [-C]</span>
+<span class="go">               [-D] [-e EXTRA_VARS] [--vault-id VAULT_IDS]</span>
+<span class="go">               [-J | --vault-password-file VAULT_PASSWORD_FILES] [-f FORKS]</span>
+<span class="go">               [-M MODULE_PATH] [--playbook-dir BASEDIR]</span>
+<span class="go">               [--task-timeout TASK_TIMEOUT] [-a MODULE_ARGS] [-m MODULE_NAME]</span>
+<span class="go">               pattern</span>
+
+<span class="go">Define and run a single task &#39;playbook&#39; against a set of hosts</span>
+
+<span class="go">positional arguments:</span>
+<span class="go">  pattern               host pattern</span>
+
+<span class="go">options:</span>
+<span class="go">  --become-password-file BECOME_PASSWORD_FILE, --become-pass-file BECOME_PASSWORD_FILE</span>
+<span class="go">                        Become password file</span>
+<span class="go">...</span>
+</pre></div>
+</div>
+<p>As before, entry points are not required, and if not specified the PEX will default to just dropping
+into an interpreter.  If an alternate interpreter is specified with <code class="docutils literal notranslate"><span class="pre">--python</span></code>, e.g. pypy, it will
+be the default hashbang in the PEX file:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pex<span class="w"> </span>--python<span class="o">=</span>pypy3.10<span class="w"> </span>flask<span class="w"> </span>-o<span class="w"> </span>flask-pypy.pex
+</pre></div>
+</div>
+<p>The hashbang of the PEX file specifies PyPy:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>head<span class="w"> </span>-1<span class="w"> </span>flask-pypy.pex
+<span class="gp">#</span>!/usr/bin/env<span class="w"> </span>pypy3.10
+</pre></div>
+</div>
+<p>and when invoked uses the environment PyPy:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">:; ./flask-pypy.pex</span>
+<span class="go">Pex 2.16.1 hermetic environment with 1 requirement and 7 activated distributions.</span>
+<span class="go">Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)</span>
+<span class="go">[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)] on linux</span>
+<span class="go">Type &quot;help&quot;, &quot;pex&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.</span>
+<span class="go">&gt;&gt;&gt; import flask</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<p>To specify an explicit Python shebang line (e.g. from a non-standard location or not on $PATH),
+you can use the <code class="docutils literal notranslate"><span class="pre">--python-shebang</span></code> option:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pex<span class="w"> </span>--python-shebang<span class="o">=</span><span class="s1">&#39;/Users/wickman/Python/CPython-3.4.2/bin/python3.4&#39;</span><span class="w"> </span>-o<span class="w"> </span>my.pex
+<span class="gp">$ </span>head<span class="w"> </span>-1<span class="w"> </span>my.pex
+<span class="gp">#</span>!/Users/wickman/Python/CPython-3.4.2/bin/python3.4
+</pre></div>
+</div>
+<p>Furthermore, this can be manipulated at runtime using the <code class="docutils literal notranslate"><span class="pre">PEX_PYTHON</span></code> environment variable.</p>
+</section>
+<section id="tailoring-requirement-resolution">
+<h2>Tailoring requirement resolution<a class="headerlink" href="#tailoring-requirement-resolution" title="Link to this heading">¶</a></h2>
+<p>In general, <code class="docutils literal notranslate"><span class="pre">pex</span></code> honors the same options as pip when it comes to resolving packages.  Like pip,
+by default <code class="docutils literal notranslate"><span class="pre">pex</span></code> fetches artifacts from PyPI.  This can be disabled with <code class="docutils literal notranslate"><span class="pre">--no-index</span></code>.</p>
+<p>If PyPI fetching is disabled, you will need to specify a search repository via <code class="docutils literal notranslate"><span class="pre">-f/--find-links</span></code>.
+This may be a directory on disk or a remote simple http server.</p>
+<p>For example, you can delegate artifact fetching and resolution to <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">wheel</span></code> for whatever
+reason – perhaps you’re running a firewalled mirror – but continue to package with pex:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip<span class="w"> </span>wheel<span class="w"> </span>-w<span class="w"> </span>/tmp/wheelhouse<span class="w"> </span>sphinx<span class="w"> </span>sphinx_rtd_theme<span class="w"> </span>setuptools
+<span class="gp">$ </span>pex<span class="w"> </span>-f<span class="w"> </span>/tmp/wheelhouse<span class="w"> </span>--no-index<span class="w"> </span>-c<span class="w"> </span>sphinx-build<span class="w"> </span>-o<span class="w"> </span>sphinx.pex<span class="w"> </span>sphinx<span class="w"> </span>sphinx_rtd_theme<span class="w"> </span>setuptools
+</pre></div>
+</div>
+</section>
+<section id="tailoring-pex-execution-at-build-time">
+<h2>Tailoring PEX execution at build time<a class="headerlink" href="#tailoring-pex-execution-at-build-time" title="Link to this heading">¶</a></h2>
+<p>There are a few options that can tailor how PEX environments are invoked.  These can be found
+by running <code class="docutils literal notranslate"><span class="pre">pex</span> <span class="pre">--help</span></code>.  Every flag mentioned here has a corresponding environment variable
+that can be used to override the runtime behavior which can be set directly in your environment,
+or sourced from a <code class="docutils literal notranslate"><span class="pre">.pexrc</span></code> file (checking for <code class="docutils literal notranslate"><span class="pre">~/.pexrc</span></code> first, then for a relative <code class="docutils literal notranslate"><span class="pre">.pexrc</span></code>).</p>
+<section id="inherit-path">
+<h3><code class="docutils literal notranslate"><span class="pre">--inherit-path</span></code><a class="headerlink" href="#inherit-path" title="Link to this heading">¶</a></h3>
+<p>By default, PEX environments are completely scrubbed empty of any packages installed on the global site path.
+Setting <code class="docutils literal notranslate"><span class="pre">--inherit-path</span></code> allows packages within site-packages to be considered as candidate distributions
+to be included for the execution of this environment.  This is strongly discouraged as it circumvents one of
+the biggest benefits of using .pex files, however there are some cases where it can be advantageous (for example
+if a package does not package correctly an an egg or wheel.)</p>
+</section>
+<section id="ignore-errors">
+<h3><code class="docutils literal notranslate"><span class="pre">--ignore-errors</span></code><a class="headerlink" href="#ignore-errors" title="Link to this heading">¶</a></h3>
+<p>If not all of the PEX environment’s dependencies resolve correctly (e.g. you are overriding the current
+Python interpreter with <code class="docutils literal notranslate"><span class="pre">PEX_PYTHON</span></code>) this forces the PEX file to execute despite this.  Can be useful
+in certain situations when particular extensions may not be necessary to run a particular command.</p>
+</section>
+<section id="platform">
+<h3><code class="docutils literal notranslate"><span class="pre">--platform</span></code><a class="headerlink" href="#platform" title="Link to this heading">¶</a></h3>
+<p>The (abbreviated) platform to build the PEX for. This will look for wheels for the particular
+platform.</p>
+<p>The abbreviated platform is described by a string of the form <code class="docutils literal notranslate"><span class="pre">PLATFORM-IMPL-PYVER-ABI</span></code>, where
+<code class="docutils literal notranslate"><span class="pre">PLATFORM</span></code> is the platform (e.g. <code class="docutils literal notranslate"><span class="pre">linux-x86_64</span></code>, <code class="docutils literal notranslate"><span class="pre">macosx-10.4-x86_64</span></code>), <code class="docutils literal notranslate"><span class="pre">IMPL</span></code> is the python
+implementation abbreviation (<code class="docutils literal notranslate"><span class="pre">cp</span></code> or <code class="docutils literal notranslate"><span class="pre">pp</span></code>), <code class="docutils literal notranslate"><span class="pre">PYVER</span></code> is either a two or more digit string
+representing the python version (e.g., <code class="docutils literal notranslate"><span class="pre">36</span></code> or <code class="docutils literal notranslate"><span class="pre">310</span></code>) or else a component dotted version
+string (e.g., <code class="docutils literal notranslate"><span class="pre">3.6</span></code> or <code class="docutils literal notranslate"><span class="pre">3.10.1</span></code>) and <code class="docutils literal notranslate"><span class="pre">ABI</span></code> is the ABI tag (e.g., <code class="docutils literal notranslate"><span class="pre">cp36m</span></code>, <code class="docutils literal notranslate"><span class="pre">cp27mu</span></code>,
+<code class="docutils literal notranslate"><span class="pre">abi3</span></code>, <code class="docutils literal notranslate"><span class="pre">none</span></code>). A complete example: <code class="docutils literal notranslate"><span class="pre">linux_x86_64-cp-36-cp36m</span></code>.</p>
+<p><strong>Constraints</strong>: when <code class="docutils literal notranslate"><span class="pre">--platform</span></code> is used the
+<a class="reference external" href="https://peps.python.org/pep-0508/#environment-markers">environment marker</a>
+<code class="docutils literal notranslate"><span class="pre">python_full_version</span></code> will not be available if <code class="docutils literal notranslate"><span class="pre">PYVER</span></code> is not given as a three component dotted
+version since <code class="docutils literal notranslate"><span class="pre">python_full_version</span></code> is meant to have 3 digits (e.g., <code class="docutils literal notranslate"><span class="pre">3.8.10</span></code>). If a
+<code class="docutils literal notranslate"><span class="pre">python_full_version</span></code> environment marker is encountered during a resolve, an
+<code class="docutils literal notranslate"><span class="pre">UndefinedEnvironmentName</span></code> exception will be raised. To remedy this, either specify the full
+version in the platform (e.g, <code class="docutils literal notranslate"><span class="pre">linux_x86_64-cp-3.8.10-cp38</span></code>) or use <code class="docutils literal notranslate"><span class="pre">--complete-platform</span></code>
+instead.</p>
+</section>
+<section id="complete-platform">
+<h3><code class="docutils literal notranslate"><span class="pre">--complete-platform</span></code><a class="headerlink" href="#complete-platform" title="Link to this heading">¶</a></h3>
+<p>The completely specified platform to build the PEX for. This will look for wheels for the particular
+platform.</p>
+<p>The complete platform can be either a path to a file containing JSON data or else a JSON object
+literal. In either case, the JSON object is expected to have two fields with any other fields
+ignored. The <code class="docutils literal notranslate"><span class="pre">marker_environment</span></code> field should have an object value with string field values
+corresponding to
+<a class="reference external" href="https://peps.python.org/pep-0508/#environment-markers">PEP-508 marker environment</a>
+entries. It is OK to only have a subset of valid marker environment fields but it is not valid to
+present entries not defined in PEP-508. The <code class="docutils literal notranslate"><span class="pre">compatible_tags</span></code> field should have an array of
+strings value containing the compatible tags in order from most specific first to least
+specific last as defined in <a class="reference external" href="https://peps.python.org/pep-0425">PEP-425</a>. Pex can create
+complete platform JSON for you by running it on the target platform like so:
+<code class="docutils literal notranslate"><span class="pre">pex3</span> <span class="pre">interpreter</span> <span class="pre">inspect</span> <span class="pre">--markers</span> <span class="pre">--tags</span></code>. For more options, particularly to select the desired
+target interpreter see: <code class="docutils literal notranslate"><span class="pre">pex3</span> <span class="pre">interpreter</span> <span class="pre">inspect</span> <span class="pre">--help</span></code>.</p>
+</section>
+</section>
+<section id="tailoring-pex-execution-at-runtime">
+<h2>Tailoring PEX execution at runtime<a class="headerlink" href="#tailoring-pex-execution-at-runtime" title="Link to this heading">¶</a></h2>
+<p>Tailoring of PEX execution can be done at runtime by setting various environment variables.
+See <a class="reference internal" href="api/vars.html#vars"><span class="std std-ref">PEX runtime environment variables</span></a>.</p>
+</section>
+</section>
+<section id="using-bdist-pex">
+<h1>Using <code class="docutils literal notranslate"><span class="pre">bdist_pex</span></code><a class="headerlink" href="#using-bdist-pex" title="Link to this heading">¶</a></h1>
+<p>pex provides a convenience command for use in setuptools.  <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">setup.py</span>
+<span class="pre">bdist_pex</span></code> is a simple way to build executables for Python projects that
+adhere to standard naming conventions.</p>
+<section id="bdist-pex">
+<h2><code class="docutils literal notranslate"><span class="pre">bdist_pex</span></code><a class="headerlink" href="#bdist-pex" title="Link to this heading">¶</a></h2>
+<p>The default behavior of <code class="docutils literal notranslate"><span class="pre">bdist_pex</span></code> is to build an executable using the
+console script of the same name as the package.  For example, pip has three
+entry points: <code class="docutils literal notranslate"><span class="pre">pip</span></code>, <code class="docutils literal notranslate"><span class="pre">pip2</span></code> and <code class="docutils literal notranslate"><span class="pre">pip2.7</span></code> if you’re using Python 2.7.  Since
+there exists an entry point named <code class="docutils literal notranslate"><span class="pre">pip</span></code> in the <code class="docutils literal notranslate"><span class="pre">console_scripts</span></code> section
+of the entry points, that entry point is chosen and an executable pex is produced.  The pex file
+will have the version number appended, e.g. <code class="docutils literal notranslate"><span class="pre">pip-7.2.0.pex</span></code>.</p>
+<p>If no console scripts are provided, or the only console scripts available do
+not bear the same name as the package, then an environment pex will be
+produced.  An environment pex is a pex file that drops you into an
+interpreter with all necessary dependencies but stops short of invoking a
+specific module or function.</p>
+</section>
+<section id="bdist-pex-bdist-all">
+<h2><code class="docutils literal notranslate"><span class="pre">bdist_pex</span> <span class="pre">--bdist-all</span></code><a class="headerlink" href="#bdist-pex-bdist-all" title="Link to this heading">¶</a></h2>
+<p>If you would like to build all the console scripts defined in the package instead of
+just the namesake script, <code class="docutils literal notranslate"><span class="pre">--bdist-all</span></code> will write all defined entry_points but omit
+version numbers and the <code class="docutils literal notranslate"><span class="pre">.pex</span></code> suffix.  This can be useful if you would like to
+virtually install a Python package somewhere on your <code class="docutils literal notranslate"><span class="pre">$PATH</span></code> without doing something
+scary like <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">pip</span> <span class="pre">install</span></code>:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/sphinx-doc/sphinx<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>sphinx
+<span class="gp">$ </span>python<span class="w"> </span>setup.py<span class="w"> </span>bist_pex<span class="w"> </span>--bdist-all<span class="w"> </span>--bdist-dir<span class="o">=</span><span class="nv">$HOME</span>/bin
+<span class="go">running bdist_pex</span>
+<span class="go">Writing sphinx-apidoc to /Users/wickman/bin/sphinx-apidoc</span>
+<span class="go">Writing sphinx-build to /Users/wickman/bin/sphinx-build</span>
+<span class="go">Writing sphinx-quickstart to /Users/wickman/bin/sphinx-quickstart</span>
+<span class="go">Writing sphinx-autogen to /Users/wickman/bin/sphinx-autogen</span>
+<span class="gp">$ </span>sphinx-apidoc<span class="w"> </span>--help<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-1
+<span class="go">Usage: sphinx-apidoc [options] -o &lt;output_path&gt; &lt;module_path&gt; [exclude_path, ...]</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="using-pants">
+<h1>Using Pants<a class="headerlink" href="#using-pants" title="Link to this heading">¶</a></h1>
+<p>The Pants build system can build pex files. See <a class="reference external" href="http://www.pantsbuild.org">here</a> for details.</p>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="scie.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">PEX with included Python interpreter</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="whatispex.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">What are .pex files?</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2025, Pex project contributors
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            <div class="icons">
+              <a class="muted-link " href="https://pypi.org/project/pex/2.40.1/" aria-label="PyPI"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+    <path d="M439.8 200.5c-7.7-30.9-22.3-54.2-53.4-54.2h-40.1v47.4c0 36.8-31.2 67.8-66.8 67.8H172.7c-29.2 0-53.4 25-53.4 54.3v101.8c0 29 25.2 46 53.4 54.3 33.8 9.9 66.3 11.7 106.8 0 26.9-7.8 53.4-23.5 53.4-54.3v-40.7H226.2v-13.6h160.2c31.1 0 42.6-21.7 53.4-54.2 11.2-33.5 10.7-65.7 0-108.6zM286.2 404c11.1 0 20.1 9.1 20.1 20.3 0 11.3-9 20.4-20.1 20.4-11 0-20.1-9.2-20.1-20.4.1-11.3 9.1-20.3 20.1-20.3zM167.8 248.1h106.8c29.7 0 53.4-24.5 53.4-54.3V91.9c0-29-24.4-50.7-53.4-55.6-35.8-5.9-74.7-5.6-106.8.1-45.2 8-53.4 24.7-53.4 55.6v40.7h106.9v13.6h-147c-31.1 0-58.3 18.7-66.8 54.2-9.8 40.7-10.2 66.1 0 108.6 7.6 31.6 25.7 54.2 56.8 54.2H101v-48.8c0-35.3 30.5-66.4 66.8-66.4zm-6.7-142.6c-11.1 0-20.1-9.1-20.1-20.3.1-11.3 9-20.4 20.1-20.4 11 0 20.1 9.2 20.1 20.4s-9 20.3-20.1 20.3z">
+    </path>
+</svg>
+</a>
+              <a class="muted-link " href="https://github.com/pex-tool/pex/releases/download/v2.40.1/pex" aria-label="Download"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 640 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+    <path d="M537.6 226.6c4.1-10.7 6.4-22.4 6.4-34.6 0-53-43-96-96-96-19.7 0-38.1 6-53.3 16.2C367 64.2 315.3 32 256 32c-88.4 0-160 71.6-160 160 0 2.7.1 5.4.2 8.1C40.2 219.8 0 273.2 0 336c0 79.5 64.5 144 144 144h368c70.7 0 128-57.3 128-128 0-61.9-44-113.6-102.4-125.4zm-132.9 88.7L299.3 420.7c-6.2 6.2-16.4 6.2-22.6 0L171.3 315.3c-10.1-10.1-2.9-27.3 11.3-27.3H248V176c0-8.8 7.2-16 16-16h48c8.8 0 16 7.2 16 16v112h65.4c14.2 0 21.4 17.2 11.3 27.3z">
+    </path>
+</svg>
+</a>
+              <a class="muted-link " href="https://github.com/pex-tool/pex" aria-label="Source"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 496 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+    <path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z">
+    </path>
+</svg>
+</a>
+              
+            </div>
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script src="_static/documentation_options.js?v=9a34425d"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/furo.js?v=5fa4622c"></script>
+    
+<script type="module">
+    await import('/_pagefind/pagefind-highlight.js');
+    new PagefindHighlight({ highlightParam: "highlight" });
+</script></body>
+</html>

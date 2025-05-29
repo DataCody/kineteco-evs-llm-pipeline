@@ -1,0 +1,3 @@
+[console_scripts]
+dagster-cloud = dagster_cloud_cli.entrypoint:app
+dagster-plus = dagster_cloud_cli.entrypoint:app

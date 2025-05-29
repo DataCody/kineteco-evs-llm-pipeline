@@ -1,0 +1,11 @@
+#!python
+# -*- coding: utf-8 -*-
+import importlib
+import sys
+
+entry_point = importlib.import_module('pip._internal.cli.main')
+for attr in ('main',):
+    entry_point = getattr(entry_point, attr)
+
+if __name__ == "__main__":
+    sys.exit(entry_point())

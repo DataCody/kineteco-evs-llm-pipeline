@@ -1,0 +1,7 @@
+[console_scripts]
+pex = pex.bin.pex:main
+pex-tools = pex.tools.main:main
+pex3 = pex.cli.pex:main
+
+[distutils.commands]
+bdist_pex = pex.distutils.commands.bdist_pex:bdist_pex

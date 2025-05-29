@@ -1,0 +1,147 @@
+Metadata-Version: 2.4
+Name: dagster-cloud
+Version: 1.10.17
+Author-email: Elementl <support@elementl.com>
+License: Apache-2.0
+Project-URL: Homepage, https://dagster.io/cloud
+Project-URL: GitHub, https://github.com/dagster-io/dagster-cloud
+Project-URL: Changelog, https://github.com/dagster-io/dagster-cloud/blob/main/CHANGES.md
+Project-URL: Issue Tracker, https://github.com/dagster-io/dagster-cloud/issues
+Project-URL: Twitter, https://twitter.com/dagster
+Project-URL: LinkedIn, https://www.linkedin.com/showcase/dagster
+Project-URL: YouTube, https://www.youtube.com/channel/UCfLnv9X8jyHTe6gJ4hVBo9Q
+Project-URL: Slack, https://dagster.io/slack
+Project-URL: Blog, https://dagster.io/blog
+Project-URL: Newsletter, https://dagster.io/newsletter-signup
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Environment :: Console
+Classifier: Environment :: Web Environment
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: System Administrators
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Topic :: System :: Monitoring
+Classifier: Topic :: Software Development :: Libraries :: Application Frameworks
+Classifier: Operating System :: OS Independent
+Requires-Python: <3.13,>=3.9
+Description-Content-Type: text/markdown
+Requires-Dist: dagster==1.10.17
+Requires-Dist: dagster-shared==0.26.17
+Requires-Dist: dagster-cloud-cli==1.10.17
+Requires-Dist: opentelemetry-api<2,>=1.27.0
+Requires-Dist: opentelemetry-sdk<2,>=1.27.0
+Requires-Dist: opentelemetry-exporter-otlp-proto-grpc<2,>=1.27.0
+Requires-Dist: opentelemetry-exporter-otlp-proto-http<2,>=1.27.0
+Requires-Dist: pex<3,>=2.1.132
+Requires-Dist: questionary
+Requires-Dist: requests
+Requires-Dist: typer
+Provides-Extra: tests
+Requires-Dist: docker; extra == "tests"
+Requires-Dist: httpretty; extra == "tests"
+Requires-Dist: isort; extra == "tests"
+Requires-Dist: freezegun; extra == "tests"
+Requires-Dist: wordcloud; extra == "tests"
+Requires-Dist: kubernetes; extra == "tests"
+Requires-Dist: moto[all]; extra == "tests"
+Requires-Dist: mypy; extra == "tests"
+Requires-Dist: psutil; extra == "tests"
+Requires-Dist: pylint; extra == "tests"
+Requires-Dist: pytest; extra == "tests"
+Requires-Dist: types-PyYAML; extra == "tests"
+Requires-Dist: types-requests; extra == "tests"
+Requires-Dist: dagster-cloud-test-infra; extra == "tests"
+Requires-Dist: dbt-bigquery>=1.9.0; extra == "tests"
+Requires-Dist: dbt-core; extra == "tests"
+Requires-Dist: dbt-snowflake; extra == "tests"
+Requires-Dist: dbt-duckdb; extra == "tests"
+Requires-Dist: dagster-dbt; extra == "tests"
+Requires-Dist: dagster-k8s; extra == "tests"
+Requires-Dist: dagster-cloud-backend; extra == "tests"
+Provides-Extra: insights
+Requires-Dist: pyarrow; extra == "insights"
+Provides-Extra: docker
+Requires-Dist: docker; extra == "docker"
+Requires-Dist: dagster-docker==0.26.17; extra == "docker"
+Provides-Extra: kubernetes
+Requires-Dist: kubernetes; extra == "kubernetes"
+Requires-Dist: dagster-k8s==0.26.17; extra == "kubernetes"
+Provides-Extra: ecs
+Requires-Dist: dagster-aws==0.26.17; extra == "ecs"
+Requires-Dist: boto3; extra == "ecs"
+Provides-Extra: sandbox
+Requires-Dist: supervisor; extra == "sandbox"
+Provides-Extra: pex
+Requires-Dist: boto3; extra == "pex"
+Provides-Extra: serverless
+Requires-Dist: boto3; extra == "serverless"
+
+<p align="center">
+  <a target="_blank" href="https://dagster.io/cloud" style="background:none">
+    <img src="https://github.com/dagster-io/dagster-cloud/raw/main/assets/dagster-cloud-logo.png" width="auto"/>
+  </a>
+  <br /><br />
+  <a target="_blank" href="https://twitter.com/dagster" style="background:none">
+    <img src="https://img.shields.io/badge/twitter-dagster-blue.svg?labelColor=4F43DD&color=163B36&logo=twitter" />
+  </a>
+  <a target="_blank" href="https://dagster.io/slack" style="background:none">
+    <img src="https://img.shields.io/badge/slack-dagster-blue.svg?labelColor=4F43DD&color=163B36&logo=slack" />
+  </a>
+  <a target="_blank" href="https://linkedin.com/showcase/dagster" style="background:none">
+    <img src="https://img.shields.io/badge/linkedin-dagster-blue.svg?labelColor=4F43DD&color=163B36&logo=linkedin" />
+  </a>
+  <a target="_blank" href="https://github.com/dagster-io/dagster" style="background:none">
+    <img src="https://img.shields.io/github/stars/dagster-io/dagster?labelColor=4F43DD&color=163B36&logo=github">
+  </a>
+  <br />
+  <a target="_blank" href="https://pypi.org/project/dagster-cloud/" style="background:none">
+    <img src="https://img.shields.io/pypi/v/dagster-cloud?labelColor=4F43DD&color=163B36">
+  </a>
+  <a target="_blank" href="https://pypi.org/project/dagster-cloud/" style="background:none">
+    <img src="https://img.shields.io/pypi/pyversions/dagster-cloud?labelColor=4F43DD&color=163B36">
+  </a>
+</p>
+
+# Dagster Cloud
+
+The enterprise orchestration platform that puts developer experience first, with fully serverless or hybrid deployments, native branching, and out-of-the-box CI/CD.
+
+## Getting Started
+
+The complete Dagster Cloud feature set can be found on our [website](https://dagster.io/cloud). You
+can [sign up for Dagster Cloud](https://dagster.cloud/signup) and get started with a free 30 day
+trial.
+
+## Installation
+
+The Dagster Cloud Agent is available on [PyPI](https://pypi.org/project/dagster-cloud/).
+
+```
+pip install dagster-cloud
+```
+
+## Documentation
+
+You can find the full Dagster Cloud documentation on our
+[website](https://docs.dagster.io/dagster-cloud).
+
+## Community
+
+Connect with thousands of other data practitioners building with Dagster. Share knowledge, get help,
+and contribute to the open-source project. To see featured material and upcoming events, check out
+our [Dagster Community](https://dagster.io/community) page.
+
+Join our community here:
+
+- 🌟 [Star us on Github](https://github.com/dagster-io/dagster)
+- 📥 [Subscribe to our Newsletter](https://dagster.io/newsletter-signup)
+- 🐦 [Follow us on Twitter](https://twitter.com/dagster)
+- 🕴️ [Follow us on LinkedIn](https://linkedin.com/showcase/dagster)
+- 📺 [Subscribe to our YouTube channel](https://www.youtube.com/channel/UCfLnv9X8jyHTe6gJ4hVBo9Q)
+- 📚 [Read our blog posts](https://dagster.io/blog)
+- 👋 [Join us on Slack](https://dagster.io/slack)
+- 🗃 [Browse Slack archives](https://discuss.dagster.io)
+- ✏️ [Start a Github Discussion](https://github.com/dagster-io/dagster/discussions)
