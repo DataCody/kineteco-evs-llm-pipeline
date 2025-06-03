@@ -6,7 +6,7 @@ sleep 10
 set -e
 
 # Initialize the Superset database
-pip install --no-cache-dir sqlalchemy-utils
+pip install --no-cache-dir sqlalchemy-dremio pyarrow sqlalchemy-utils
 
 # Initialize the database
 superset db upgrade
@@ -21,6 +21,9 @@ superset fab create-admin \
 
 # Initialize Superset
 superset init
+
+# Register Dremio DB via Python script
+python register_dremio.py
 
 # Start the Superset server
 superset run -h 0.0.0.0 -p 8088

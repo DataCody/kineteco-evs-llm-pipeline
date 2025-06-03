@@ -36,11 +36,18 @@ services:
       SUPERSET_WEBSERVER_PORT: 8088
       SUPERSET_ADMIN_PASSWORD: admin
       SUPERSET_SECRET_KEY: xxxxx
+      DREMIO_HOST: dremio
+      DREMIO_PORT: 32010
+    env_file:
+      - .env
     volumes:
       - ./superset:/app/superset_home
       - ./superset-init.sh:/app/superset-init.sh
+      - ./register_dremio.py:/app/register_dremio.py
     entrypoint: /app/superset-init.sh
     user: root
+    depends_on:
+      - dremio
 
   jupyterlab:
     image: jupyter/datascience-notebook:latest

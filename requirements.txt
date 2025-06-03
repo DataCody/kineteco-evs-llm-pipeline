@@ -1,6 +1,7 @@
 pyspark==3.3.0
 python-dotenv
 dbt-dremio
+sqlalchemy-dremio
 dagster
 dagster-cloud
 dagster-dbt
