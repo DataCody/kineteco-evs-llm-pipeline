@@ -1,0 +1,8 @@
+langchain
+langchain-community
+unstructured
+chromadb
+boto3
+pypdf
+opencv-python-headless
+streamlit
