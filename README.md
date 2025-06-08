@@ -1,38 +1,96 @@
-# 🧠 Sales Copilot Lakehouse
+# 🛠️ Production-Ready Data Engineering Pipeline with Chatbot Integration
 [![Built with Python](https://img.shields.io/badge/Built%20with-Python-blue?logo=python)](https://www.python.org/)
 [![Powered by Spark](https://img.shields.io/badge/Data%20Migration-Spark-orange?logo=apache-spark)](https://spark.apache.org/)
 [![dbt Models](https://img.shields.io/badge/Data%20Modeling-dbt-red?logo=dbt)](https://www.getdbt.com/)
+[![Dockerized](https://img.shields.io/badge/Deployment-Docker-blue?logo=docker)](https://www.docker.com/)
+[![Dagster](https://img.shields.io/badge/Orchestration-Dagster-6E40C9?logo=dagster)](https://dagster.io/)
+[![Jupyter Notebooks](https://img.shields.io/badge/Analysis-Jupyter-orange?logo=jupyter)](https://jupyter.org/)
+[![Superset](https://img.shields.io/badge/Dashboard-Superset-darkgreen?logo=apache-superset)](https://superset.apache.org/)
 [![Streamlit App](https://img.shields.io/badge/UI-Streamlit-lightgrey?logo=streamlit)](https://streamlit.io/)
 [![RAG LLM](https://img.shields.io/badge/LLM-RAG-green?logo=openai)]()
 
-A full-stack AI assistant built for querying EV product knowledge, powered by a robust Data Engineering pipeline and Retrieval-Augmented Generation (RAG).
+A production-grade Data Engineering pipeline that integrates Spark for data migration, dbt for transformation, and Dagster for orchestration. The processed data powers an analytics dashboard in Apache Superset and a conversational chatbot interface via RAG + LLM using Streamlit. Designed to simulate an EV product data workflow in a modern lakehouse architecture.
 
 > ✅ Designed as a **portfolio project for Data Engineer roles**, integrating batch processing, modeling, BI reporting, and AI-based interaction.
 
----
-
 ## 📸 Project Overview
 
-> 🚗 Use case: Empower sales teams to interact with EV product & sales data via natural language.
+> 🚗 **Use case:** Help sales & operations teams explore EV product configurations, color options, and sales trends via a conversational interface.
 
-![Project Architecture Diagram](./images/architecture.png) <!-- Add your image later -->
+This project delivers a **production-grade data engineering pipeline** designed for real-time analytics and AI-driven exploration of electric vehicle (EV) sales data. It integrates modern data tooling and large language models (LLMs) to create a seamless, interactive experience for business users.
+
+### 🔧 Key Highlights
+
+- 🚀 **Data Ingestion** using PySpark and MinIO (S3-compatible object store)
+- 🧱 **Data Transformation & Modeling** with dbt, orchestrated by Dagster
+- 🔍 **Query Layer** powered by **Dremio** (SQL over data lake, no warehouse needed)
+- 📊 **BI Layer** built using **Apache Superset** for sales dashboards
+- 🧠 **Retrieval-Augmented Generation (RAG)** using **ChromaDB** + **Ollama (Mistral)** for smart QA
+- 💬 **Interactive UI** via **Streamlit** chatbot
+- 🐳 **Fully containerized** with Docker and served securely via Ngrok
+
+### ❓ Example Chat Queries
+
+- "What EV color sold best in Q1 2024?"
+- "Show me the sales breakdown for the AeroFlow model by region"
+- "List all available models with more than 500km range"
 
 ---
+
+## 🗺️ Architecture Diagram
+
+📌 _You can replace the placeholder below with your architecture image. Recommended contents:_
+
+- **Spark ingestion from CSV/JSON into MinIO**
+- **dbt DAGs running on Dagster**
+- **Dremio as semantic + acceleration layer**
+- **Superset for analytics**
+- **ChromaDB for vector storage**
+- **LLM with Ollama (Mistral)**
+- **Chatbot interface via Streamlit**
+
+```text
+             ┌────────────┐
+             │   MinIO    │
+             └────┬───────┘
+                  │
+            ┌─────▼────┐
+            │  Spark   │
+            └────┬─────┘
+         ┌───────▼─────────┐
+         │   dbt + Dagster │
+         └───────┬─────────┘
+                 ▼
+              ┌───────┐
+              │Dremio │──┐
+              └───────┘  │
+                         ▼
+        ┌──────────┐   ┌────────────┐
+        │ Superset │   │ ChromaDB   │
+        └────┬─────┘   └────┬───────┘
+             ▼              ▼
+         ┌──────────────────────┐
+         │   Streamlit Chat UI  │
+         └──────────────────────┘
+
 
 ## 🧰 Tech Stack
 
-| Layer             | Tools / Frameworks                                           |
-|------------------|--------------------------------------------------------------|
-| **Data Ingestion** | Apache Spark (PySpark) + MinIO (S3 API)                      |
-| **Transformation**| dbt (data modeling, pipeline orchestration)                  |
-| **Data Warehouse**| DuckDB (local), or replaceable with Redshift/Snowflake       |
-| **BI Dashboard**  | Apache Superset (sales insights, color/model analysis)       |
-| **Embedding Store**| Chroma (local vector DB)                                    |
-| **LLM Backend**   | Ollama + Mistral + nomic-embed-text                          |
-| **UI Layer**      | Streamlit chatbot                                            |
-| **Ops / Dev Tooling** | Ngrok, Python, dotenv, logging                           |
+| Layer                | Tools & Frameworks                                                                 |
+|---------------------|-------------------------------------------------------------------------------------|
+| **Data Ingestion**   | [Apache Spark (PySpark)](https://spark.apache.org/) + [MinIO](https://min.io/) (S3 API) |
+| **Data Transformation** | [dbt](https://www.getdbt.com/) (data modeling), [Dagster](https://dagster.io/) (orchestration) |
+| **Data Warehouse**   | [DuckDB](https://duckdb.org/) (local OLAP engine) — pluggable with Redshift / Snowflake |
+| **Data Visualization** | [Apache Superset](https://superset.apache.org/) (interactive dashboards & reporting) |
+| **Notebook Interface** | [Jupyter](https://jupyter.org/) (development & debugging support)                     |
+| **LLM Embedding Store** | [Chroma](https://www.trychroma.com/) (local vector database)                        |
+| **LLM Backend**      | [Ollama](https://ollama.com/) + [Mistral](https://mistral.ai/) + [nomic-embed-text](https://huggingface.co/nomic-ai) |
+| **Frontend / UI**    | [Streamlit](https://streamlit.io/) chatbot interface (user Q&A with RAG pipeline) |
+| **Dev & Ops Tools**  | [Docker](https://www.docker.com/), [Ngrok](https://ngrok.com/), Python, `dotenv`, logging |
 
 ---
+
+> 💡 *All components are modular and containerized — easily portable for deployment or extension.*
 
 ## 📊 Data Pipeline Walkthrough
 
