@@ -1,4 +1,4 @@
-# 🛠️ Production-Ready Data Engineering Pipeline with Chatbot Integration
+# 🛠️ Production-Ready Data Engineering Pipeline with Generative AI Integration
 [![Built with Python](https://img.shields.io/badge/Built%20with-Python-blue?logo=python)](https://www.python.org/)
 [![Powered by Spark](https://img.shields.io/badge/Data%20Migration-Spark-orange?logo=apache-spark)](https://spark.apache.org/)
 [![dbt Models](https://img.shields.io/badge/Data%20Modeling-dbt-red?logo=dbt)](https://www.getdbt.com/)
@@ -9,7 +9,7 @@
 [![Streamlit App](https://img.shields.io/badge/UI-Streamlit-lightgrey?logo=streamlit)](https://streamlit.io/)
 [![RAG LLM](https://img.shields.io/badge/LLM-RAG-green?logo=openai)]()
 
-A production-grade Data Engineering pipeline that integrates Spark for data migration, dbt for transformation, and Dagster for orchestration. The processed data powers an analytics dashboard in Apache Superset and a conversational chatbot interface via RAG + LLM using Streamlit. Designed to simulate an EV product data workflow in a modern lakehouse architecture.
+A production-grade Data Engineering pipeline that integrates Spark for data migration, dbt for transformation, and Dagster for orchestration. The processed data powers an analytics dashboard in Apache Superset and a Generative AI interface via RAG + LLM using Streamlit. Designed to simulate an EV product data workflow in a modern lakehouse architecture.
 
 > ✅ Designed as a **portfolio project for Data Engineer roles**, integrating batch processing, modeling, BI reporting, and AI-based interaction.
 
