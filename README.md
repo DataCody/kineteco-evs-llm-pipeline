@@ -104,7 +104,7 @@ This project delivers a **production-grade data engineering pipeline** designed 
 df = spark.read.csv("s3a://lakehouse/sales.csv", header=True)
 df.write.parquet("s3a://lakehouse/processed/")
 ```
-📷 Screenshot: Spark Job in Terminal (TO ADD)
+
 
 ### 2. 🧱 Data Modeling with dbt
 	•	Created models for products, sales_summary, and color_distribution.
@@ -119,7 +119,7 @@ FROM {{ ref('sales') }}
 GROUP BY 1, 2
 
 ```
-📷 Screenshot: dbt DAG and dbt run logs (TO ADD)
+![📷 Screenshot: dbt DAG and dbt run logs](screenshots/Global_Asset_Lineage.png)
 
 ### 3. 📈 Dashboard with Apache Superset
 	•	Built an interactive dashboard to analyze:
@@ -127,7 +127,7 @@ GROUP BY 1, 2
 	•	Region-wise model distribution
 	•	Temporal sales trends
 
-📷 Screenshot: Superset Dashboard (TO ADD)
+![📷 Screenshot: Superset Dashboard](screenshots/dashboard.png)
 
 ### 4. 🔍 Embedding + Vector Search (Chroma)
 	•	Loaded all markdown & product PDFs
