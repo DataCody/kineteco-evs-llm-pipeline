@@ -107,8 +107,8 @@ df.write.parquet("s3a://lakehouse/processed/")
 
 
 ### 2. 🧱 Data Modeling with dbt
-	•	Created models for products, sales_summary, and color_distribution.
-	•	Scheduled and tested transformations locally.
+* Created models for products, sales_summary, and color_distribution.
+* Scheduled and tested transformations locally.
 ```sql
 -- Example dbt model
 SELECT 
@@ -122,17 +122,17 @@ GROUP BY 1, 2
 ![📷 Screenshot: dbt DAG and dbt run logs](screenshots/Global_Asset_Lineage.svg)
 
 ### 3. 📈 Dashboard with Apache Superset
-	•	Built an interactive dashboard to analyze:
-	•	Most sold EV colors
-	•	Region-wise model distribution
-	•	Temporal sales trends
+* Built an interactive dashboard to analyze:
+* Most sold EV colors
+* Region-wise model distribution
+* Temporal sales trends
 
 ![📷 Screenshot: Superset Dashboard](screenshots/dashboard.png)
 
 ### 4. 🔍 Embedding + Vector Search (Chroma)
-	•	Loaded all markdown & product PDFs
-	•	Used nomic-embed-text for document embeddings via Ollama
-	•	Stored vector chunks in a local Chroma DB
+* Loaded all markdown & product PDFs
+* Used nomic-embed-text for document embeddings via Ollama
+* Stored vector chunks in a local Chroma DB
 
 📷 Screenshot: Chroma DB files created (TO ADD)
 🧠 Example Query
@@ -145,7 +145,7 @@ The AeroFlow model is available in Red, Glacier Blue, and Pearl White.
 With sources retrieved from embedded markdown/PDF documentation.
 
 ##  Architecture Summary
-```mermaid
+```
 flowchart TD
     A[Raw CSV / Docs] --> B[Apache Spark]
     B --> C[MinIO / S3]
@@ -158,17 +158,17 @@ flowchart TD
     I --> J[Streamlit Chatbot]
 ```
 ## 🎯 Skills Demonstrated
-	•	✅ PySpark for large-scale transformation
-	•	✅ dbt for data modeling & CI-friendly pipelines
-	•	✅ Superset for rapid BI development
-	•	✅ LLM apps using LangChain + Ollama + Chroma
-	•	✅ Streamlit for frontend chatbot UI
-	•	✅ Environment control with .env, pyenv, ngrok
+* ✅ PySpark for large-scale transformation
+* ✅ dbt for data modeling & CI-friendly pipelines
+* ✅ Superset for rapid BI development
+* ✅ LLM apps using LangChain + Ollama + Chroma
+* ✅ Streamlit for frontend chatbot UI
+* ✅ Environment control with .env, pyenv, ngrok
 
 ## 📎 Next Steps
-	•	Add PostgreSQL or Snowflake as production DWH
-	•	Deploy chatbot publicly with Docker + Ngrok
-	•	Add session memory and multi-turn RAG
+* Add PostgreSQL or Snowflake as production DWH
+* Deploy chatbot publicly with Docker + Ngrok
+* Add session memory and multi-turn RAG
 ## 📁 Repository Structure
 <pre><code>Sales-Copilot-Lakehouse/
 ├── rag/                    # LLM, RAG, Chatbot code
