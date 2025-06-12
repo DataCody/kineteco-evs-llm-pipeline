@@ -119,7 +119,7 @@ FROM {{ ref('sales') }}
 GROUP BY 1, 2
 
 ```
-![📷 Screenshot: dbt DAG and dbt run logs](screenshots/Global_Asset_Lineage.png)
+![📷 Screenshot: dbt DAG and dbt run logs](screenshots/Global_Asset_Lineage.svg)
 
 ### 3. 📈 Dashboard with Apache Superset
 	•	Built an interactive dashboard to analyze:
