@@ -121,11 +121,14 @@ GROUP BY 1, 2
 ```
 ![📷 Screenshot: dbt DAG and dbt run logs](screenshots/Global_Asset_Lineage.svg)
 
-### 3. 📈 Dashboard with Apache Superset
-* Built an interactive dashboard to analyze:
-* Most sold EV colors
-* Region-wise model distribution
-* Temporal sales trends
+### 3. 📈 Interactive Customer Insights Dashboard with Apache Superset
+
+Developed an interactive dashboard to analyze key customer segmentation metrics, including:
+* VIP customer distribution by state to identify high-value regions
+* Customer model preferences by location across six product lines
+* Overall VIP ratio analysis, highlighting customer loyalty and engagement patterns
+
+This dashboard provides actionable insights for regional marketing strategies and product optimization, with visualizations powered by Apache Superset.
 
 ![📷 Screenshot: Superset Dashboard](screenshots/dashboard.png)
 
@@ -165,10 +168,6 @@ flowchart TD
 * ✅ Streamlit for frontend chatbot UI
 * ✅ Environment control with .env, pyenv, ngrok
 
-## 📎 Next Steps
-* Add PostgreSQL or Snowflake as production DWH
-* Deploy chatbot publicly with Docker + Ngrok
-* Add session memory and multi-turn RAG
 ## 📁 Repository Structure
 <pre><code>Sales-Copilot-Lakehouse/
 ├── rag/                    # LLM, RAG, Chatbot code
@@ -185,3 +184,7 @@ flowchart TD
 └── README.md              # You're here
 </code></pre>
 
+## 📎 Next Steps
+* Add PostgreSQL or Snowflake as production DWH
+* Deploy chatbot publicly with Docker + Ngrok
+* Add session memory and multi-turn RAG
