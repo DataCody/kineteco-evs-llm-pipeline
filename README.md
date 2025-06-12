@@ -132,20 +132,16 @@ This dashboard provides actionable insights for regional marketing strategies an
 
 ![📷 Screenshot: Superset Dashboard](screenshots/dashboard.png)
 
-### 4. 🔍 Embedding + Vector Search (Chroma)
-* Loaded all markdown & product PDFs
-* Used nomic-embed-text for document embeddings via Ollama
-* Stored vector chunks in a local Chroma DB
+### 4. 🧠 EV Product Chatbot Interface — Powered by Generative AI
 
-📷 Screenshot: Chroma DB files created (TO ADD)
-🧠 Example Query
+Built an interactive chatbot application using a local LLM interface (deployed via localhost:8501) to simulate customer service for an electric vehicle (EV) company. The chatbot is capable of:
+* Answering context-aware product queries, such as best EV models for city driving or feature comparisons across models.
+* Providing dynamic responses about color availability, performance specs, and design features for multiple EV models (e.g., AeroFlow, UrbanGlide, EcoSprint).
+* Delivering natural language explanations drawn from embedded documentation (PDF/Markdown) using RAG (Retrieval-Augmented Generation).
 
-“What colors is the AeroFlow model available in?”
+📸 Screenshot shows real-time chat interactions where users inquire about model suitability, color availability, and detailed specifications.
 
-Chatbot Response:
-The AeroFlow model is available in Red, Glacier Blue, and Pearl White.
-
-With sources retrieved from embedded markdown/PDF documentation.
+![📷 Screenshot: Generative AI Chat interface](screenshots/chat.png)
 
 ##  Architecture Summary
 ```
