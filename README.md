@@ -1,8 +1,12 @@
 # 🛠️ Production-Ready Data Engineering Pipeline with Generative AI Integration
+[![GCP](https://img.shields.io/badge/Cloud-GCP-blue?logo=googlecloud)](https://cloud.google.com/)
+[![GCS](https://img.shields.io/badge/Storage-GCS-lightblue?logo=googledrive)](https://cloud.google.com/storage)
 [![Built with Python](https://img.shields.io/badge/Built%20with-Python-blue?logo=python)](https://www.python.org/)
 [![Powered by Spark](https://img.shields.io/badge/Data%20Migration-Spark-orange?logo=apache-spark)](https://spark.apache.org/)
 [![dbt Models](https://img.shields.io/badge/Data%20Modeling-dbt-red?logo=dbt)](https://www.getdbt.com/)
 [![Dockerized](https://img.shields.io/badge/Deployment-Docker-blue?logo=docker)](https://www.docker.com/)
+[![Dremio](https://img.shields.io/badge/Lakehouse-Dremio-1F6FEB?logo=dremio)](https://www.dremio.com/)
+[![Nessie](https://img.shields.io/badge/Catalog-Nessie-purple?logo=github)](https://projectnessie.org/)
 [![Dagster](https://img.shields.io/badge/Orchestration-Dagster-6E40C9?logo=dagster)](https://dagster.io/)
 [![Jupyter Notebooks](https://img.shields.io/badge/Analysis-Jupyter-orange?logo=jupyter)](https://jupyter.org/)
 [![Superset](https://img.shields.io/badge/Dashboard-Superset-darkgreen?logo=apache-superset)](https://superset.apache.org/)
@@ -21,7 +25,7 @@ This project delivers a **production-grade data engineering pipeline** designed 
 
 ### 🔧 Key Highlights
 
-- 🚀 **Data Ingestion** using PySpark and MinIO (S3-compatible object store)
+- 🚀 **Data Ingestion** using PySpark and Google Cloud Storage (GCS)
 - 🧱 **Data Transformation & Modeling** with dbt, orchestrated by Dagster
 - 🔍 **Query Layer** powered by **Dremio** (SQL over data lake, no warehouse needed)
 - 📊 **BI Layer** built using **Apache Superset** for sales dashboards
@@ -47,36 +51,13 @@ This project delivers a **production-grade data engineering pipeline** designed 
 - **LLM with Ollama (Mistral)**
 - **Chatbot interface via Streamlit**
 
-```text
-             ┌────────────┐
-             │   MinIO    │
-             └────┬───────┘
-                  │
-            ┌─────▼────┐
-            │  Spark   │
-            └────┬─────┘
-         ┌───────▼─────────┐
-         │   dbt + Dagster │
-         └───────┬─────────┘
-                 ▼
-              ┌───────┐
-           ┌──│Dremio │──┐
-           │  └───────┘  │
-           ▼             ▼
-      ┌──────────┐   ┌────────────┐
-      │ Superset │   │ ChromaDB   │
-      └────┬─────┘   └────┬───────┘
-           ▼              ▼
-      ┌──────────────────────┐
-      │   Streamlit Chat UI  │
-      └──────────────────────┘
-```
+![📷 Screenshot: dbt DAG and dbt run logs](screenshots/Diagram.gif)
 
 ## 🧰 Tech Stack
 
 | Layer                | Tools & Frameworks                                                                 |
 |---------------------|-------------------------------------------------------------------------------------|
-| **Data Ingestion**   | [Apache Spark (PySpark)](https://spark.apache.org/) + [MinIO](https://min.io/) (S3 API) |
+| **Data Ingestion**   | [Apache Spark (PySpark)](https://spark.apache.org/) + [GCS](https://min.io/) (Google Cloud Storage) |
 | **Data Transformation** | [dbt](https://www.getdbt.com/) (data modeling), [Dagster](https://dagster.io/) (orchestration) |
 | **Data Warehouse**   | [DuckDB](https://duckdb.org/) (local OLAP engine) — pluggable with Redshift / Snowflake |
 | **Data Visualization** | [Apache Superset](https://superset.apache.org/) (interactive dashboards & reporting) |
@@ -95,7 +76,7 @@ This project delivers a **production-grade data engineering pipeline** designed 
 ### 1. 🔁 Data Migration with Spark
 
 - Used **PySpark** to extract, clean, and load raw sales data into a lakehouse.
-- Integrated with **MinIO** as a low-cost S3 alternative for object storage.
+- Integrated with **GCS** as a Cloud DataLake.
 
 ```bash
 # Sample code snippet
@@ -141,20 +122,9 @@ Built an interactive chatbot application using a local LLM interface (deployed v
 
 ![📷 Screenshot: Generative AI Chat interface](screenshots/chat.png)
 
-##  Architecture Summary
-```
-flowchart TD
-    A[Raw CSV / Docs] --> B[Apache Spark]
-    B --> C[MinIO / S3]
-    C --> D[dbt Modeling]
-    D --> E[DuckDB / Warehouse]
-    E --> F[Superset Dashboards]
-    C --> G[LangChain + Embedding]
-    G --> H[Chroma Vector Store]
-    H --> I[Ollama (LLM)]
-    I --> J[Streamlit Chatbot]
-```
+
 ## 🎯 Skills Demonstrated
+* ✅ GCS for large-scale datalake
 * ✅ PySpark for large-scale transformation
 * ✅ dbt for data modeling & CI-friendly pipelines
 * ✅ Superset for rapid BI development
@@ -177,8 +147,3 @@ flowchart TD
 ├── .env                   # Environment secrets
 └── README.md              # You're here
 </code></pre>
-
-## 📎 Next Steps
-* Add PostgreSQL or Snowflake as production DWH
-* Deploy chatbot publicly with Docker + Ngrok
-* Add session memory and multi-turn RAG
