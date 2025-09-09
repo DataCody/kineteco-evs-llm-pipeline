@@ -51,7 +51,7 @@ This project delivers a **production-grade data engineering pipeline** designed 
 - **LLM with Ollama (Mistral)**
 - **Chatbot interface via Streamlit**
 
-![📷 Screenshot: dbt DAG and dbt run logs](screenshots/Diagram.gif)
+![📷 Screenshot: Architecture Diagram](screenshots/Diagram.gif)
 
 ## 🧰 Tech Stack
 
@@ -77,27 +77,15 @@ This project delivers a **production-grade data engineering pipeline** designed 
 
 - Used **PySpark** to extract, clean, and load raw sales data into a lakehouse.
 - Integrated with **GCS** as a Cloud DataLake.
+- Built modular dbt models following **bronze → silver → gold** architecture, enabling clean staging, enriched intermediate layers, and curated marts for analytics.
 
-```bash
-# Sample code snippet
-df = spark.read.csv("s3a://lakehouse/sales.csv", header=True)
-df.write.parquet("s3a://lakehouse/processed/")
-```
-
+![📷 Screenshot: dbt DAG and dbt run logs](screenshots/etl.gif)
 
 ### 2. 🧱 Data Modeling with dbt
 * Created models for products, sales_summary, and color_distribution.
 * Scheduled and tested transformations locally.
-```sql
--- Example dbt model
-SELECT 
-    model,
-    color,
-    COUNT(*) AS sales_count
-FROM {{ ref('sales') }}
-GROUP BY 1, 2
 
-```
+
 ![📷 Screenshot: dbt DAG and dbt run logs](screenshots/Global_Asset_Lineage.svg)
 
 ### 3. 📈 Interactive Customer Insights Dashboard with Apache Superset
