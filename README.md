@@ -43,7 +43,7 @@ This project delivers a **production-grade data engineering pipeline** designed 
 
 ## 🗺️ Architecture Diagram
 
-- **Spark ingestion from CSV/JSON into MinIO**
+- **Spark ingestion from CSV/JSON into Google Cloud Storage(GCS)**
 - **dbt DAGs running on Dagster**
 - **Dremio as semantic + acceleration layer**
 - **Superset for analytics**
