@@ -51,7 +51,7 @@ This project delivers a **production-grade data engineering pipeline** designed 
 - **LLM with Ollama (Mistral)**
 - **Chatbot interface via Streamlit**
 
-![📷 Screenshot: dbt DAG and dbt run logs](screenshots/Diagram.gif)
+![📷 Screenshot: Architecture Diagram](screenshots/Diagram.gif)
 
 ## 🧰 Tech Stack
 
