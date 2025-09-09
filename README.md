@@ -13,7 +13,7 @@ A production-grade Data Engineering pipeline that integrates Spark for data migr
 
 > ✅ Designed as a **portfolio project for Data Engineer roles**, integrating batch processing, modeling, BI reporting, and AI-based interaction.
 
-## 📸 Project Overview
+## 🚀 Project Overview
 
 > 🚗 **Use case:** Help sales & operations teams explore EV product configurations, color options, and sales trends via a conversational interface.
 
@@ -38,8 +38,6 @@ This project delivers a **production-grade data engineering pipeline** designed 
 ---
 
 ## 🗺️ Architecture Diagram
-
-📌 _You can replace the placeholder below with your architecture image. Recommended contents:_
 
 - **Spark ingestion from CSV/JSON into MinIO**
 - **dbt DAGs running on Dagster**
